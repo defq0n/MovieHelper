@@ -127,7 +127,7 @@ public class MovieScraper {
         String moviesHTML[] = parseMoviesHTML(sc.next());
         String[][] result = getMovieInformation(moviesHTML);
         System.out.println("URL\t\t\t" + "Title\t\t" + "Year\t" + "Category");
-        for(int i = 0; i < 10; i++){ //hard coded LOL because im lazy (10 lines)
+        for(int i = 0; i < result[0].length; i++){ 
             if(!result[0][i].equals("") && !result[1][i].equals("") && !result[2][i].equals("")){
             System.out.print(result[0][i] + "\t");
             System.out.print(result[1][i] + "\t");
@@ -143,7 +143,7 @@ public class MovieScraper {
      *      parseMoviesHTMl(String) was obtained correctly. 
      *  @author defq0n
      *  @param moviesHTML Movie HTML source code array from parseMoviesHTMl(String).
-     *  @return result Multidimensional array containing {url[], title[], year[]}
+     *  @return result Multidimensional array containing {url, title, year, category}
      */
     public static String[][] getMovieInformation(String[] moviesHTML){
         //declare variables, all of these have to be initialized for simple string addition
