@@ -21,8 +21,7 @@ public class MovieScraper {
      */
     public static void main(String[] args) {
         //testFormatString();
-        //testGetSearchHTML();
-        //testParseMovies();
+        //testParseMoviesHTML();
         testGetMovieInformation();
     }
     
@@ -61,12 +60,14 @@ public class MovieScraper {
      * testParseMovies() tests parseMoviesHTML(String).
      * @author defq0n
      */
-    private static void testParseMovies(){
+    private static void testParseMoviesHTML(){
         System.out.println("Type in a movie you want to search for and get the movies HTML results: ");
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String moviesHTML[] = parseMoviesHTML(sc.next());
+        int i = 1;
         for (String moviesHTML1 : moviesHTML) {
-                System.out.println(moviesHTML1);
+                System.out.println(i + ": " +moviesHTML1);
+                i++;
         }
     }
     
@@ -97,7 +98,7 @@ public class MovieScraper {
             //loop over tbody to find how many movies there are and store the results in #moviesHTML
             int counter = 0; // counter for while loop
             while(counter < 10){ //hard code 10 because thats the maximum amount in #moviesHTML
-                for(int i = tbody.indexOf("<td class=\"result_text\">"); i < tbody.indexOf(") </td>")+7; i++){
+                for(int i = tbody.indexOf("<td class=\"result_text\">")+24; i < tbody.indexOf(") </td>")+7; i++){
                     moviesHTML[counter] += tbody.charAt(i);
                 }
                 //now we have to reset tbody for the next 
@@ -125,11 +126,14 @@ public class MovieScraper {
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String moviesHTML[] = parseMoviesHTML(sc.next());
         String[][] result = getMovieInformation(moviesHTML);
-        System.out.println("URL\t\t\t" + "Title\t\t" + "Year");
+        System.out.println("URL\t\t\t" + "Title\t\t" + "Year\t" + "Category");
         for(int i = 0; i < 10; i++){ //hard coded LOL because im lazy (10 lines)
+            if(!result[0][i].equals("") && !result[1][i].equals("") && !result[2][i].equals("")){
             System.out.print(result[0][i] + "\t");
             System.out.print(result[1][i] + "\t");
-            System.out.print(result[2][i] + "\n");
+            System.out.print(result[2][i] + "\t");
+            System.out.print(result[3][i] + "\n");
+            }
         }
     }
     
@@ -145,6 +149,7 @@ public class MovieScraper {
         //declare variables, all of these have to be initialized for simple string addition
         String[][] result = {{"","","","","","","","","",""}, 
                             {"","","","","","","","","",""}, 
+                            {"","","","","","","","","",""},
                             {"","","","","","","","","",""}}; //initalize three different arrays for url, title, and year
         int counter = 0;
         while(counter < 10){
@@ -152,18 +157,29 @@ public class MovieScraper {
             for(int i = moviesHTML[counter].indexOf("a href=\"")+8; i < moviesHTML[counter].indexOf("?"); i++){
                 result[0][counter] += moviesHTML[counter].charAt(i);               
             }
+            //have to get the offset for dynamic results
+            int offset = (moviesHTML[counter].indexOf("\">")-moviesHTML[counter].indexOf("a href=\""))+ 2;          
             //next get the name of the movie
-            boolean tenth = true; //since this is hardcoded, we have to check if its the 10th movie too add one more character - hopefully dynamic in future
-            for(int i = moviesHTML[counter].indexOf((counter+1) + "\"")+3; i < moviesHTML[counter].indexOf("</a>"); i++){
-                if(counter == 9 && tenth){
-                    i++;
-                    tenth = false;
-                }
+            for(int i = moviesHTML[counter].indexOf("a href=\"")+offset; i < moviesHTML[counter].indexOf("</a>"); i++){
                 result[1][counter] += moviesHTML[counter].charAt(i);
             }
             //next get the year of the movie
             for(int i = moviesHTML[counter].indexOf("</a> (")+6; i < moviesHTML[counter].indexOf(")"); i++){
                 result[2][counter] += moviesHTML[counter].charAt(i);
+            }
+            
+            //next get the category
+            int secondPar = moviesHTML[counter].indexOf(")"); //get the index of the first parenthesis, so we can get the index of the next one. this assumes the returned string is (YEAR) (CATEGORY)
+            for(int i = moviesHTML[counter].indexOf(") (")+3; i < moviesHTML[counter].indexOf(")", secondPar + 1); i++){
+                //If nothing is returned, that meanst the entry is a movie *** also there is a category called "TV Movie"
+                if(moviesHTML[counter].indexOf(")", secondPar + 1) - moviesHTML[counter].indexOf(") (") > 10){ //if the distance of the next parenthesis is > than the previous by 10...
+                    break; //this check assures that the movie doesn't go by another name, which would mess with parsing the category
+                }
+                result[3][counter] += moviesHTML[counter].charAt(i);
+            }
+            //This checks to make sure that there is a movie in the selected index, and replaces "" with "Movie"
+            if(!result[0][counter].equals("") && result[3][counter].equals("")){
+                result[3][counter] = "Movie";
             }
             //add one to the counter to move onto the next movie
             counter++;           
