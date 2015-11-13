@@ -1,0 +1,86 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 12, 2015, 3:08:59 PM
+    Author     : zach
+*/
+
+.background{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4e6e8e+0,708090+50,4e6e8e+100 */
+background: rgb(78,110,142); /* Old browsers */
+background: -moz-linear-gradient(left,  rgba(78,110,142,1) 0%, rgba(112,128,144,1) 50%, rgba(78,110,142,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(78,110,142,1) 0%,rgba(112,128,144,1) 50%,rgba(78,110,142,1) 100%); /* Chrome10-25,Safari5.1-6 */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e6e8e', endColorstr='#4e6e8e',GradientType=1 ); /* IE6-9 */
+
+
+font-family: sans-serif;
+color: white;
+}
+
+.search_panel{
+    border-style: groove;
+    border-color: slategray;
+    text-align: center;
+    color: black;
+    background: #8497B2;
+}
+
+.user_info_panel{
+    text-align: right;
+}
+
+.movie_poster_thumbnail{
+    width: 128px;
+    height: auto;
+    border-style: groove;
+    border-color: goldenrod;
+    margin: 12px;
+}
+
+.movie_panel{
+    border-style: inset;
+    border-color: slategrey;
+    text-align: left;
+    margin-bottom: 12px;
+    background: #8497B2;
+    color: black;
+}
+
+movie_title{
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.search_button{
+    text-align: center;
+    margin: 8px;
+}
+
+.movie_rating{
+    text-align: right;
+}
+
+.details_button{
+    text-align: center;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: lightskyblue;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}

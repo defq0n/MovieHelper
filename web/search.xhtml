@@ -11,10 +11,23 @@ and open the template in the editor.
     <h:head>
         <title>MovieHelper - Search</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet name="css/styles.css" />
+        <h:outputStylesheet name="css/searchStyles.css" />
     </h:head>
     <h:body styleClass="background">
-        <p>Search Page</p>
+        <p>
+            MovieHelper
+            <div class="user_info_panel">
+                <h:panelGroup rendered="#{!user.loggedIn}">
+                    <a href="login.xhtml">Log in</a><br/> 
+                    <a href="register.xhtml">Register</a>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{user.loggedIn}">
+                    #{user.username}<br/>
+                    <a href="profile.xhtml">My Profile</a>
+                </h:panelGroup>
+            </div>
+        </p>
+        <div class="search_panel">
         <h:form>
             <p>
                 Find some 
@@ -41,10 +54,43 @@ and open the template in the editor.
                 .
             </p>
             
-            <h:commandButton value="Search"/>
+            <h:commandButton value="Search" styleClass="search_button"
+                             action="#{search.dummySearch()}"/>
         </h:form>
         <h:form>
-            <h:commandButton value="I'm feelin' lucky"/>
+            <h:commandButton value="I'm feelin' lucky" styleClass="search_button"
+                             action="#{search.dummyRandomSearch()}"/>
         </h:form>
+        </div>
+        <h:panelGroup rendered="#{search.hasResults()}">
+            #{search.results.size()} result(s) were found.
+            <h:dataTable value="#{search.results}" var="result">
+                <h:column>
+                    <div class="movie_panel">
+                        <h:panelGrid columns="3">
+                            <h:panelGroup>
+                                <img src="resources/img/fillerPoster.png" class="movie_poster_thumbnail"/>
+                                <h:form styleClass="details_button">
+                                    <h:button value="Details" outcome="movie"/>
+                                </h:form>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup styleClass="movie_title">
+                                <p class="movie_title">
+                                    #{result.name}
+                                </p>
+                                <p>
+                                    #{result.description}
+                                </p>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup styleClass="movie_rating">
+                                Rating: #{result.rating} / 10
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </div>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
     </h:body>
 </html>

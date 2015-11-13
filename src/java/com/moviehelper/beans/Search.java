@@ -2,18 +2,17 @@ package com.moviehelper.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ConversationScoped;
 
 /**
  * A bean to handle the requirements of searching the movie database.
  * @author zach
  */
 @Named(value = "search")
-@SessionScoped
+@ConversationScoped
 public class Search implements Serializable
 {
     /**
@@ -21,12 +20,14 @@ public class Search implements Serializable
      */
     public Search()
     {
+        results = new ArrayList<>();
         dates = new ArrayList<>();
         ratings = new ArrayList<>();
         genres = new ArrayList<>();
+        dates.add("any year");
         for (int i = 1950; i <= 2010; i += 10)
         {
-            dates.add(i);
+            dates.add(Integer.toString(i));
         }
         for (int i = 0; i <= 10; i++)
         {
@@ -41,7 +42,7 @@ public class Search implements Serializable
         genres.add("Horror");
     }
     
-    public List<Integer> getDates()
+    public List<String> getDates()
     {
         return dates;
     }
@@ -61,12 +62,12 @@ public class Search implements Serializable
         return results;
     }
 
-    public void setMinReleaseYear(int minReleaseYear)
+    public void setMinReleaseYear(String minReleaseYear)
     {
         this.minReleaseYear = minReleaseYear;
     }
 
-    public void setMaxReleaseYear(int maxReleaseYear)
+    public void setMaxReleaseYear(String maxReleaseYear)
     {
         this.maxReleaseYear = maxReleaseYear;
     }
@@ -96,12 +97,12 @@ public class Search implements Serializable
         return genre;
     }
 
-    public int getMinReleaseYear()
+    public String getMinReleaseYear()
     {
         return minReleaseYear;
     }
 
-    public int getMaxReleaseYear()
+    public String getMaxReleaseYear()
     {
         return maxReleaseYear;
     }
@@ -112,19 +113,55 @@ public class Search implements Serializable
     }
     
     /**
-     * Checks that a keyword is not empty, then adds it to the list of keywords.
-     * @param keyword The keyword to be added.
+     * Determines whether the current search has found any results yet.
+     * @return true if results are found, false otherwise
      */
+    public Boolean hasResults()
+    {
+        return !results.isEmpty();
+    }
+    
+    /**
+     * A dummy action method for UI prototyping.
+     * @return "search" action.
+     */
+    public String dummySearch()
+    {
+        results.clear();
+        List<String> contributors = new ArrayList<>();
+        contributors.add("Billy Bob");
+        contributors.add("Mike");
+        contributors.add("Joe");
+        results.add(new Movie("Dummy movie", "A dummy movie for testing purposes",
+                    "Dummy genre", "April 14th, 2020", contributors, 5));
+        return "search";
+    }
+    
+    /**
+     * A dummy action method for UI prototyping.
+     * @return "search" action.
+     */
+    public String dummyRandomSearch()
+    {
+        results.clear();
+        List<String> contributors = new ArrayList<>();
+        contributors.add("Billy Bob");
+        contributors.add("Mike");
+        contributors.add("Joe");
+        results.add(new Movie("Random movie", "Looks like someone was feeling lucky",
+                    "Random genre", "April 14th, 2020", contributors, 5));
+        return "search";
+    }
     
     //Criteria given by the user
-    int minReleaseYear;
-    int maxReleaseYear;
+    String minReleaseYear;
+    String maxReleaseYear;
     int rating;
     String genre;
     String keyword;
     
     //Options for drop down menus
-    List<Integer> dates;
+    List<String> dates;
     List<Integer> ratings;
     List<String> genres;
 
