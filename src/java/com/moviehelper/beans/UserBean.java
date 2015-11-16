@@ -73,6 +73,7 @@ public class UserBean implements Serializable {
         this.faveMovie = faveMovie;
     }
 
+    //This review map format probably won't make the final cut
     public Map<String, Pair<Integer, String>> getReviews() {
         return reviews;
     }

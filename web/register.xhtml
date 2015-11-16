@@ -19,7 +19,6 @@ and open the template in the editor.
             <div class="user_info_panel">
                 <h:panelGroup rendered="#{!user.loggedIn}">
                     <a href="login.xhtml">Log in</a><br/> 
-                    <a href="register.xhtml">Register</a>
                 </h:panelGroup>
                 <h:panelGroup rendered="#{user.loggedIn}">
                     #{user.username}<br/>

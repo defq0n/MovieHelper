@@ -32,7 +32,6 @@ public class SearchBean implements Serializable
         {
             dates.add(Integer.toString(i));
         }
-        dates.add("present day");
         for (int i = 0; i <= 10; i++)
         {
             ratings.add(i);
