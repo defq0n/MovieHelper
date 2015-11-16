@@ -9,13 +9,13 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>MovieHelper - Search</title>
+        <title>Movie Helper - Search</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/searchStyles.css" />
     </h:head>
     <h:body styleClass="background">
         <p>
-            MovieHelper
+            Movie Helper
             <div class="user_info_panel">
                 <h:panelGroup rendered="#{!user.loggedIn}">
                     <a href="login.xhtml">Log in</a><br/> 
@@ -24,6 +24,9 @@ and open the template in the editor.
                 <h:panelGroup rendered="#{user.loggedIn}">
                     #{user.username}<br/>
                     <a href="profile.xhtml">My Profile</a>
+                    <h:form>
+                        <h:commandLink value="Log Out" action="#{user.logout()}"/>
+                    </h:form>
                 </h:panelGroup>
             </div>
         </p>
@@ -63,7 +66,6 @@ and open the template in the editor.
         </h:form>
         </div>
         <h:panelGroup rendered="#{search.hasResults()}">
-            #{search.results.size()} result(s) were found.
             <h:dataTable value="#{search.results}" var="result">
                 <h:column>
                     <div class="movie_panel">

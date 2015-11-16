@@ -3,9 +3,10 @@ package com.moviehelper.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.ConversationScoped;
 
 import javax.inject.Named;
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 
 /**
  * A bean to handle the requirements of searching the movie database.
@@ -13,12 +14,12 @@ import javax.enterprise.context.ConversationScoped;
  */
 @Named(value = "search")
 @ConversationScoped
-public class Search implements Serializable
+public class SearchBean implements Serializable
 {
     /**
      * Initializes search options.
      */
-    public Search()
+    public SearchBean()
     {
         results = new ArrayList<>();
         dates = new ArrayList<>();
@@ -29,6 +30,7 @@ public class Search implements Serializable
         {
             dates.add(Integer.toString(i));
         }
+        dates.add("present day");
         for (int i = 0; i <= 10; i++)
         {
             ratings.add(i);
@@ -57,7 +59,7 @@ public class Search implements Serializable
         return genres;
     }
 
-    public List<Movie> getResults()
+    public List<MovieBean> getResults()
     {
         return results;
     }
@@ -132,7 +134,7 @@ public class Search implements Serializable
         contributors.add("Billy Bob");
         contributors.add("Mike");
         contributors.add("Joe");
-        results.add(new Movie("Dummy movie", "A dummy movie for testing purposes",
+        results.add(new MovieBean("Dummy movie", "A dummy movie for testing purposes",
                     "Dummy genre", "April 14th, 2020", contributors, 5));
         return "search";
     }
@@ -148,7 +150,7 @@ public class Search implements Serializable
         contributors.add("Billy Bob");
         contributors.add("Mike");
         contributors.add("Joe");
-        results.add(new Movie("Random movie", "Looks like someone was feeling lucky",
+        results.add(new MovieBean("Random movie", "Looks like someone was feeling lucky",
                     "Random genre", "April 14th, 2020", contributors, 5));
         return "search";
     }
@@ -165,6 +167,6 @@ public class Search implements Serializable
     List<Integer> ratings;
     List<String> genres;
 
-    List<Movie> results;  //Results of a search
+    List<MovieBean> results;  //Results of a search
     
 }

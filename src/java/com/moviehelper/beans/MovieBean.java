@@ -19,9 +19,9 @@ import javax.inject.Inject;
  */
 //@Named(value = "movie")
 //@ConversationScoped
-public class Movie implements Serializable
+public class MovieBean implements Serializable
 {
-    public Movie(String name, String description, String genre, String releaseDate, List<String> contributors, int rating)
+    public MovieBean(String name, String description, String genre, String releaseDate, List<String> contributors, int rating)
     {
         this.name = name;
         this.description = description;

@@ -4,8 +4,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Nov 12, 2015, 3:08:59 PM
-    Author     : zach
+    Created on : Nov 15, 2015, 7:46:51 PM
+    Author     : Zach
 */
 
 .background{
@@ -20,65 +20,36 @@ font-family: sans-serif;
 color: white;
 }
 
-.search_panel{
+.movie_poster{
     border-style: groove;
-    border-color: slategray;
-    text-align: center;
-    background: #8497B2;
+    border-color: goldenrod;
+}
+
+.movie_media_panel{
+    vertical-align: middle;
+}
+
+column_1 {
+    
+}
+
+column_2 {
+    
+}
+
+movie_title {
+    font-size: xx-large;
 }
 
 .user_info_panel{
     text-align: right;
 }
 
-.movie_poster_thumbnail{
-    width: 128px;
-    height: auto;
-    border-style: groove;
-    border-color: goldenrod;
-    margin: 12px;
-}
-
-.movie_panel{
+.review_panel{
+    background: #8497B2;
     border-style: inset;
     border-color: slategrey;
-    text-align: left;
-    margin-bottom: 12px;
-    background: #8497B2;
-}
-
-movie_title{
-    font-weight: bold;
-    font-size: 50px;
-}
-
-.search_button{
-    text-align: center;
-    margin: 8px;
-}
-
-.movie_rating{
-    text-align: right;
-}
-
-.details_button{
-    text-align: center;
-}
-
-a:link {
-    text-decoration: none;
-    color: white;
-}
-
-a:visited {
-    text-decoration: none;
-    color: lightskyblue;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-a:active {
-    text-decoration: underline;
+    width: 1000px;
+    
+    margin: 10px;
 }
