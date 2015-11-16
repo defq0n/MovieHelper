@@ -3,10 +3,12 @@ package com.moviehelper.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.ConversationScoped;
 
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.flow.FlowScoped;
 
 /**
  * A bean to handle the requirements of searching the movie database.
