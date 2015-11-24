@@ -4,21 +4,41 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Movie Helper</title>
-        <h:outputStylesheet name="css/indexStyles.css" />
+        <h:outputStylesheet name="css/indexStyles.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
+        <title> Movie Helper </title>
     </h:head>
-    <h:body styleClass="background">
+    <h:body class ="background">
         <div class="header">
-            Movie Helper
+            <h2> Movie Helper </h2>
         </div>
-        <h:form styleClass="indexPanel">
-            <h:commandButton value="Find a Movie" action="search"
-                             styleClass="button"/>
-            <h:commandButton value="Log In" action="login"
-                             styleClass="button"/>
-            <h:commandButton value="Register" action="register"
-                             styleClass="button"/>
-        </h:form>
+        <div class="container">
+            <div class="image-container">
+                <div class="button-container">
+                    <h:form>
+                        <h:commandButton value="Login" action="login"/>
+                        <h:commandButton value="Register" action="register"/>
+                    </h:form>
+                </div>
+            </div>
+            <div class="information-container">
+                <div class="information-left">
+                    <h4 id="information-headers"> What is Movie Helper?</h4>
+                    <p id="information-text"> Lorem ipsum dolor sit amet, tollit partiendo ne eam, augue lobortis mei an. Commodo pertinax temporibus mel te, odio nostro pro et, in iusto ubique doctus pri. Id vis libris nusquam, vis tempor doctus ornatus no, nec ut alii prompta maiorum. Te vix mentitum recusabo, eam ut explicari suscipiantur. Ut sea viris honestatis, dicunt definitiones sit ex. Est fugit nostrud tibique et, ex dicit nusquam sed, probatus volutpat at cum.</p>
+                    <h4 id="information-headers"> What is Movie Helper?</h4>
+                    <p id="information-text"> Lorem ipsum dolor sit amet, tollit partiendo ne eam, augue lobortis mei an. Commodo pertinax temporibus mel te, odio nostro pro et, in iusto ubique doctus pri. Id vis libris nusquam, vis tempor doctus ornatus no, nec ut alii prompta maiorum. Te vix mentitum recusabo, eam ut explicari suscipiantur. Ut sea viris honestatis, dicunt definitiones sit ex. Est fugit nostrud tibique et, ex dicit nusquam sed, probatus volutpat at cum.</p>
+                </div>
+                <div class="information-right">
+                    <h4 id="information-headers">About us</h4>
+                    <p id="information-text"> Lorem ipsum dolor sit amet, tollit partiendo ne eam, augue lobortis mei an. Commodo pertinax temporibus mel te, odio nostro pro et, in iusto ubique doctus pri. Id vis libris nusquam, vis tempor doctus ornatus no, nec ut alii prompta maiorum. Te vix mentitum recusabo, eam ut explicari suscipiantur. Ut sea viris honestatis, dicunt definitiones sit ex. Est fugit nostrud tibique et, ex dicit nusquam sed, probatus volutpat at cum.</p>
+                    <h4 id="information-headers"> Open Source</h4>
+                    <p> Come join the open source project. You can find us on Github by clicking on this <a href="https://github.com/defq0n/MovieHelper">link.</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p> (c) Copyright by defq0n | For educational purposes only </p>
+        </div>
     </h:body>
 </html>
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Movie Helper - Search</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/searchStyles.css" />
+    </h:head>
+    <h:body styleClass="background">
+        <p>
+            Movie Helper
+            <div class="user_info_panel">
+                <h:panelGroup rendered="#{!user.loggedIn}">
+                    <a href="login.xhtml">Log in</a><br/> 
+                    <a href="register.xhtml">Register</a>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{user.loggedIn}">
+                    #{user.username}<br/>
+                    <a href="profile.xhtml">My Profile</a>
+                    <h:form>
+                        <h:commandLink value="Log Out" action="#{user.logout()}"/>
+                    </h:form>
+                </h:panelGroup>
+            </div>
+        </p>
+        <div class="search_panel">
+        <h:form>
+            <p>
+                Find some 
+                <h:selectOneMenu value="#{search.genre}">
+                    <f:selectItems value="#{search.genres}"/>
+                </h:selectOneMenu>
+
+                movies, released from  
+                <h:selectOneMenu value="#{search.minReleaseYear}">
+                    <f:selectItems value="#{search.dates}"/>
+                </h:selectOneMenu>
+                 to 
+                <h:selectOneMenu value="#{search.maxReleaseYear}">
+                    <f:selectItems value="#{search.dates}"/>
+                </h:selectOneMenu>    
+
+                with a rating of at least
+                <h:selectOneMenu value="#{search.rating}">
+                    <f:selectItems value="#{search.ratings}"/>
+                </h:selectOneMenu>
+
+                , containing the key words
+                <h:inputText value="#{search.keyword}"/>
+                .
+            </p>
+            
+            <h:commandButton value="Search" styleClass="search_button"
+                             action="#{search.dummySearch()}"/>
+        </h:form>
+        <h:form>
+            <h:commandButton value="I'm feelin' lucky" styleClass="search_button"
+                             action="#{search.dummyRandomSearch()}"/>
+        </h:form>
+        </div>
+        <h:panelGroup rendered="#{search.hasResults()}">
+            <h:dataTable value="#{search.results}" var="result">
+                <h:column>
+                    <div class="movie_panel">
+                        <h:panelGrid columns="3">
+                            <h:panelGroup>
+                                <img src="resources/img/fillerPoster.png" class="movie_poster_thumbnail"/>
+                                <h:form styleClass="details_button">
+                                    <h:button value="Details" outcome="movie"/>
+                                </h:form>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup styleClass="movie_title">
+                                <p class="movie_title">
+                                    #{result.name}
+                                </p>
+                                <p>
+                                    #{result.description}
+                                </p>
+                            </h:panelGroup>
+                            
+                            <h:panelGroup styleClass="movie_rating">
+                                Rating: #{result.rating} / 10
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </div>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+    </h:body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Movie Helper - Register</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/registerStyles.css" />
+    </h:head>
+    <h:body styleClass="background">
+        <p>
+            Movie Helper
+            <div class="user_info_panel">
+                <h:panelGroup rendered="#{!user.loggedIn}">
+                    <a href="login.xhtml">Log in</a><br/> 
+                </h:panelGroup>
+                <h:panelGroup rendered="#{user.loggedIn}">
+                    #{user.username}<br/>
+                    <a href="profile.xhtml">My Profile</a>
+                </h:panelGroup>
+            </div>
+        </p>
+        <h:form>
+            <h:panelGrid columns="3">
+                Username:
+                <h:inputText value="#{user.username}" id="name" required="true"
+                             label="Username"/>
+                <h:message for="name" errorClass="error"/>
+                Password:
+                <h:inputSecret value="#{user.password}" id="password" required="true"
+                               label="Password"/>
+                <h:message for="password" errorClass="error"/>
+                Confirm Password:
+                <h:inputSecret value="#{user.passwordValidation}" id="passwordValidate"
+                               required="true" label="Password Confirmation"/>
+                <h:message for="passwordValidate" errorClass="error"/>
+            </h:panelGrid>
+            <h:commandButton value="Register" action="#{user.register()}"/>
+        </h:form>
+    </h:body>
+</html>
