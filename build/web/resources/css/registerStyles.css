@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 15, 2015, 7:47:21 PM
+    Author     : Zach
+*/
+
+.background{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4e6e8e+0,708090+50,4e6e8e+100 */
+background: rgb(78,110,142); /* Old browsers */
+background: -moz-linear-gradient(left,  rgba(78,110,142,1) 0%, rgba(112,128,144,1) 50%, rgba(78,110,142,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(78,110,142,1) 0%,rgba(112,128,144,1) 50%,rgba(78,110,142,1) 100%); /* Chrome10-25,Safari5.1-6 */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e6e8e', endColorstr='#4e6e8e',GradientType=1 ); /* IE6-9 */
+
+
+font-family: sans-serif;
+color: white;
+}
+
+.error{
+    font-weight: bold;
+    color: gold;
+}
+
+.user_info_panel{
+    text-align: right;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: lightskyblue;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
