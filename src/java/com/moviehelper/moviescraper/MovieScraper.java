@@ -5,6 +5,7 @@
  */
 package com.moviehelper.moviescraper;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -125,7 +126,7 @@ public class MovieScraper {
         System.out.println("Type in a movie you want to search for and get the moives html results: ");
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String moviesHTML[] = parseMoviesHTML(sc.next());
-        String[][] result = getMovieInformation(moviesHTML);
+        String[][] result = getMovieListInformation(moviesHTML);
         System.out.println("URL\t\t\t" + "Title\t\t" + "Year\t" + "Category");
         for(int i = 0; i < result[0].length; i++){ 
             if(!result[0][i].equals("") && !result[1][i].equals("") && !result[2][i].equals("")){
@@ -145,12 +146,12 @@ public class MovieScraper {
      *  @param moviesHTML Movie HTML source code array from parseMoviesHTMl(String).
      *  @return result Multidimensional array containing {url, title, year, category}
      */
-    public static String[][] getMovieInformation(String[] moviesHTML){
+    public static String[][] getMovieListInformation(String[] moviesHTML){
         //declare variables, all of these have to be initialized for simple string addition
         String[][] result = {{"","","","","","","","","",""}, 
                             {"","","","","","","","","",""}, 
                             {"","","","","","","","","",""},
-                            {"","","","","","","","","",""}}; //initalize three different arrays for url, title, and year
+                            {"","","","","","","","","",""}}; //initalize four different arrays for url, title, and year, genre
         int counter = 0;
         while(counter < 10){
             //start by getting the year of the movies
@@ -185,6 +186,45 @@ public class MovieScraper {
             counter++;           
         }
         return result;
+    }
+    
+    public ArrayList<Movie> getMovieInformation(String[][] movieList){
+        ArrayList<Movie> movieArray = new ArrayList<>();
+        for(int i = 0; i < movieList[0].length; i++){
+            if(!movieList[3][i].equals("")){
+                if(movieList[3][i].toLowerCase().contains("movie")){
+                    Movie tempMovie = new Movie(movieList[1][i]);
+                    String pageLink = movieList[0][i];
+                    tempMovie.setPageLink(pageLink);
+                    tempMovie.setMovieYear(movieList[2][i]);
+                    tempMovie.setMovieDescription(getMovieDescription(pageLink));
+                    tempMovie.setPosterLink(getPosterLink(pageLink));
+                    tempMovie.setActors(getMovieActors(pageLink));
+                }
+            }
+        }
+        
+        
+        
+        return movieArray;
+    }
+    
+    public String getMovieDescription(String pageLink){
+        String movieDescription = "";
+        //TODO
+        return movieDescription;
+    }
+    
+    public String getPosterLink(String pageLink){
+        String posterLink = "";
+        //TODO
+        return posterLink;
+    }
+    
+    public String[] getMovieActors(String pageLink){
+        String[] movieActors = {};
+        //TODO
+        return movieActors;
     }
 }
 

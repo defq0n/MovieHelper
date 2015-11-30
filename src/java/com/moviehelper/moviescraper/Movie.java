@@ -11,6 +11,7 @@ package com.moviehelper.moviescraper;
  */
 public class Movie {
     private final String name;
+    private String pageLink;
     private String year;
     private String description;
     private String[] actors;
@@ -62,6 +63,14 @@ public class Movie {
    
    public void setActors(String[] actors){
        this.actors = actors;
+   }
+   
+   public String getPageLink(){
+       return this.pageLink;
+   }
+   
+   public void setPageLink(String pageLink){
+       this.pageLink = pageLink;
    }
 }
 
