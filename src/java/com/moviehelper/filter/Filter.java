@@ -5,7 +5,7 @@
  */
 package com.moviehelper.filter;
 
-import static com.moviehelper.moviescraper.MovieScraper.getMovieInformation;
+import static com.moviehelper.moviescraper.MovieScraper.getMovieListInformation;
 import static com.moviehelper.moviescraper.MovieScraper.parseMoviesHTML;
 
 /**
@@ -15,7 +15,7 @@ import static com.moviehelper.moviescraper.MovieScraper.parseMoviesHTML;
 public class Filter {
     public void filterOnGenre(String movieName) {
         String moviesHTML[] = parseMoviesHTML(movieName);
-        String[][] result = getMovieInformation(moviesHTML);
+        String[][] result = getMovieListInformation(moviesHTML);
         
         String firstHit = result[1][0];
         String genre = result[3][0];
