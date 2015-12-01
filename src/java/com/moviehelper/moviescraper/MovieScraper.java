@@ -141,7 +141,7 @@ public class MovieScraper {
     }
     
     /**
-     *  getMovieInformation gets all the movies and its presented information and 
+     *  getMovieListInformation gets all the movies and its presented information and 
      *      sets it into a multidimensional array. This assumes that the HTML from
      *      parseMoviesHTMl(String) was obtained correctly. 
      *  @author defq0n
@@ -190,6 +190,14 @@ public class MovieScraper {
         return result;
     }
     
+    /**
+    * getMovieInformation gets the movie description, the poster link, and the actors
+    * from the list of movies as the parameter. They are returned in an ArrayList<Movie>
+    * as movie objects, which you will be able to get all the movies information.
+    * @author defq0n
+    * @param movieList is a multidimensional array from getMovieListInformation.
+    * @return movieArray a ArrayList containing Movie objects.
+    */
     public static ArrayList<Movie> getMovieInformation(String[][] movieList){
         ArrayList<Movie> movieArray = new ArrayList<>();
         for(int i = 0; i < movieList[0].length; i++){
@@ -211,6 +219,12 @@ public class MovieScraper {
         return movieArray;
     }
     
+    /**
+    * getMovieDescription parses through the movie's page html and returns the description.
+    * @author defq0n
+    * @param pageLink is the extended imdb url for the movie page.
+    * @return movieDescription String containing the description
+    */
     public static String getMovieDescription(String pageLink){
         String movieDescription = "";
         try {
@@ -230,6 +244,12 @@ public class MovieScraper {
         return movieDescription;
     }
     
+    /**
+    * getMovieDescription parses through the movie's page html and returns the poster url link.
+    * @author defq0n
+    * @param pageLink is the extended imdb url for the movie page.
+    * @return posterLink String containing the poster url link.
+    */
     public static String getPosterLink(String pageLink){
         String posterLink = "";
         try {
@@ -249,6 +269,12 @@ public class MovieScraper {
         return posterLink;
     }
     
+    /**
+    * getMovieDescription parses through the movie's page html and returns three actors.
+    * @author defq0n
+    * @param pageLink is the extended imdb url for the movie page.
+    * @return movieActors String containing three actors.
+    */
     public static String[] getMovieActors(String pageLink){
         String[] movieActors = {"", "", ""};
         try {
