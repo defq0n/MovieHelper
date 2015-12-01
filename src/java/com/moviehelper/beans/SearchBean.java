@@ -1,8 +1,12 @@
 package com.moviehelper.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.ConversationScoped;
 
@@ -23,6 +27,7 @@ public class SearchBean implements Serializable
      */
     public SearchBean()
     {
+        database = new DatabaseBean();
         results = new ArrayList<>();
         dates = new ArrayList<>();
         ratings = new ArrayList<>();
@@ -130,13 +135,44 @@ public class SearchBean implements Serializable
      */
     public String dummySearch()
     {
-        results.clear();
-        List<String> contributors = new ArrayList<>();
-        contributors.add("Billy Bob");
-        contributors.add("Mike");
-        contributors.add("Joe");
-        results.add(new MovieBean("Dummy movie", "A dummy movie for testing purposes",
-                    "Dummy genre", "April 14th, 2020", contributors, 5));
+            //        results.clear();
+//        List<String> contributors = new ArrayList<>();
+//        contributors.add("Billy Bob");
+//        contributors.add("Mike");
+//        contributors.add("Joe");
+//        results.add(new MovieBean("Dummy movie", "A dummy movie for testing purposes",
+//                    "Dummy genre", "April 14th, 2020", contributors, 5));
+//        return "search";
+            
+            //results will contain the search results in a list
+            //currently a list of moviebean objects
+            //it is rendered conditionally on the search page
+            //if results exist they are displayed, returning "search"
+            
+            
+            //get criteria user has selected for the search
+            //how to handle null cases?
+            //assume everything is filled?
+            //treat a null value as a wildcard (i.e. select *)
+            //genre
+        
+            //min release date
+            //max release date
+            //rating
+            //keyword
+            //use search criteria and send it to the database bean
+        try {
+            database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
+            //multiple results: database will return results in the form of an arraylist????
+            //single result: database will return results in the form of an moviebean?
+            
+            
+            return "search";
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "search";
     }
     
@@ -169,5 +205,7 @@ public class SearchBean implements Serializable
     List<String> genres;
 
     List<MovieBean> results;  //Results of a search
+    
+    DatabaseBean database;
     
 }

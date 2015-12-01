@@ -3,18 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/resources/css/loginStyles.css</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/search.xhtml</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/src/java/com/moviehelper/beans/UserBean.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/register.xhtml</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/login.xhtml</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/resources/css/registerStyles.css</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/resources/css/profileStyles.css</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/movie.xhtml</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/resources/css/movieStyles.css</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/resources/css/searchStyles.css</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/web/profile.xhtml</file>
-            <file>file:/D:/Documents/NetBeansProjects/MovieHelper/src/java/com/moviehelper/beans/SearchBean.java</file>
+            <file>file:/C:/Users/Dustin/Downloads/MovieHelper/src/java/com/moviehelper/beans/DatabaseBean.java</file>
+            <file>file:/C:/Users/Dustin/Downloads/MovieHelper/src/java/com/moviehelper/beans/SQL.java</file>
+            <file>file:/C:/Users/Dustin/Downloads/MovieHelper/web/search.xhtml</file>
+            <file>file:/C:/Users/Dustin/Downloads/MovieHelper/src/java/com/moviehelper/beans/SearchBean.java</file>
+            <file>file:/C:/Users/Dustin/Downloads/MovieHelper/src/java/com/moviehelper/beans/UserBean.java</file>
+            <file>file:/C:/Users/Dustin/Downloads/MovieHelper/src/java/com/moviehelper/beans/MovieBean.java</file>
         </group>
     </open-files>
 </project-private>
