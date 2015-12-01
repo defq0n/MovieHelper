@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -11,33 +5,33 @@ and open the template in the editor.
     <h:head>
         <title>Movie Helper - Log In</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
         <h:outputStylesheet name="css/loginStyles.css" />
     </h:head>
-    <h:body styleClass="background">
-        <p>
-            Movie Helper
-            <div class="user_info_panel">
-                <h:panelGroup rendered="#{!user.loggedIn}">
-                    <a href="register.xhtml">Register</a>
-                </h:panelGroup>
-                <h:panelGroup rendered="#{user.loggedIn}">
-                    #{user.username}<br/>
-                    <a href="profile.xhtml">My Profile</a>
-                </h:panelGroup>
+    <h:body>
+        <div class="header">
+            <h1> <a href="index.xhtml">Movie Helper </a> </h1>
+        </div>
+        <div class="container">
+            <h2> Login to MovieHelper! </h2>
+            <div class="form-container">
+                <h:form class="form">
+                    <h:panelGrid columns="3">
+                    Username:
+                    <h:inputText value="#{user.username}" id="name" required="true"
+                                 label="Username"/>
+                    <h:message for="name" errorClass="error"/>
+                    Password:
+                    <h:inputSecret value="#{user.password}" id="password" required="true"
+                                   label="Password"/>
+                    <h:message for="password" errorClass="error"/>
+                </h:panelGrid>
+                <h:commandButton value="Log In" action="#{user.login()}"/>
+                </h:form>
             </div>
-        </p>
-        <h:form>
-            <h:panelGrid columns="3">
-                Username:
-                <h:inputText value="#{user.username}" id="name" required="true"
-                             label="Username"/>
-                <h:message for="name" errorClass="error"/>
-                Password:
-                <h:inputSecret value="#{user.password}" id="password" required="true"
-                               label="Password"/>
-                <h:message for="password" errorClass="error"/>
-            </h:panelGrid>
-            <h:commandButton value="Log In" action="#{user.login()}"/>
-        </h:form>
+        </div>
+        <footer>
+            <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>
+        </footer>
     </h:body>
 </html>
