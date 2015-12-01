@@ -19,12 +19,12 @@
       </h:panelGroup>
       <h:panelGroup rendered="#{user.loggedIn}">
         <div class="header">
-            <h1> <a href="index.xhtml"> Movie Helper </a> </h1>
-            <p> <a href="profile.xhtml">My Profile</a> </p>
+            <h1> <a href="index.xhtml"> Movie Helper </a> </h1>      
         </div>
         <div class="container">
-          <div class="search-container"> 
-            <h:form>
+            <p> <a href="profile.xhtml">My Profile</a> </p>
+          <div class="form-container"> 
+            <h:form class="form">
             <p>
                 Find some 
                 <h:selectOneMenu value="#{search.genre}">
@@ -87,5 +87,8 @@
           </div>
         </div>
       </h:panelGroup>
+        <footer>
+            <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>
+        </footer>
     </h:body>
 </html>
