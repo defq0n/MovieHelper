@@ -25,7 +25,7 @@ public class MovieScraper {
         //testFormatString();
         //testParseMoviesHTML();
         //testGetMovieInformation();
-        System.out.println(Arrays.toString(getMovieActors("/title/tt0241527/")));
+        System.out.println(getPosterLink("/title/tt0241527/"));
     }
     
     /**
@@ -232,7 +232,7 @@ public class MovieScraper {
             Element e = d.body();
             String html = e.toString();
             String descriptionDiv = "";
-            for(int i = html.indexOf("description\">")+13; i < html.length(); i++){
+            for(int i = html.indexOf("description\">")+13; i < html.indexOf("<div class=\"txt-block\" itemprop=\"director\""); i++){
                 descriptionDiv += html.charAt(i);
             }
             for(int i = 0; i < descriptionDiv.indexOf("</p>"); i++){
@@ -257,7 +257,7 @@ public class MovieScraper {
             Element e = d.body();
             String html = e.toString();
             String posterDiv = "";
-            for(int i = html.indexOf("class=\"image\">")+14; i < html.length(); i++){
+            for(int i = html.indexOf("class=\"image\">")+14; i < html.indexOf("<div class=\"pro-title-link text-center\">"); i++){
                 posterDiv += html.charAt(i);
             }
             for(int i = posterDiv.indexOf("src=\"")+5; i < posterDiv.indexOf(".jpg\"")+4; i++){
