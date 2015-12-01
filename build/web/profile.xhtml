@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+<!-- 
+    Displaying information about a user on their profile.
+    @author defq0n && zjfoede
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -11,24 +9,31 @@ and open the template in the editor.
     <h:head>
         <title>Movie Helper - My profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
         <h:outputStylesheet name="css/profileStyles.css" />
     </h:head>
-    <h:body styleClass="background">
-        Movie Helper
-        <div class="search_panel">
-            <h:form>
-                <h:commandLink action="search" value="Find a Movie"/>
-            </h:form>
-            <h:form>
-                <h:commandLink value="Log Out" action="#{user.logout()}"/>
-            </h:form>
+    <h:body>
+        <div class="header">
+            <h1> <a href="index.xhtml">Movie Helper </a> </h1>
         </div>
-        Username: #{user.username}<br/>
-        Favorite Movie: Dummy Movie<br/>
-        Reviews by this user: #{user.reviews.size()}
-        <div class="review_panel">
-            Title: Dummy Movie&#160;&#160;&#160;&#160;Rating: 5/10<br/>
-            "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. A solid 5 from me."
+        <div class="container">
+            <div class="options">
+                <ul>
+                    <li><a href="search.xhtml">Search</a></li>
+                    |
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+            Username: #{user.username}<br/>
+            Favorite Movie: Dummy Movie<br/>
+            Reviews by this user: #{user.reviews.size()}
+            <div class="review_panel">
+                Title: Dummy Movie&#160;&#160;&#160;&#160;Rating: 5/10<br/>
+                "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. A solid 5 from me."
+            </div>
         </div>
+        <footer>
+            <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>
+        </footer>
     </h:body>
 </html>
