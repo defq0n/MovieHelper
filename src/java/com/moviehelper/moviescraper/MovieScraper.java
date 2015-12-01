@@ -23,7 +23,8 @@ public class MovieScraper {
     public static void main(String[] args) {
         //testFormatString();
         //testParseMoviesHTML();
-        testGetMovieInformation();
+        //testGetMovieInformation();
+        System.out.println(getPosterLink("/title/tt0241527/"));
     }
     
     /**
@@ -188,7 +189,7 @@ public class MovieScraper {
         return result;
     }
     
-    public ArrayList<Movie> getMovieInformation(String[][] movieList){
+    public static ArrayList<Movie> getMovieInformation(String[][] movieList){
         ArrayList<Movie> movieArray = new ArrayList<>();
         for(int i = 0; i < movieList[0].length; i++){
             if(!movieList[3][i].equals("")){
@@ -209,19 +210,45 @@ public class MovieScraper {
         return movieArray;
     }
     
-    public String getMovieDescription(String pageLink){
+    public static String getMovieDescription(String pageLink){
         String movieDescription = "";
-        //TODO
+        try {
+            Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
+            Element e = d.body();
+            String html = e.toString();
+            String descriptionDiv = "";
+            for(int i = html.indexOf("description\">")+13; i < html.length(); i++){
+                descriptionDiv += html.charAt(i);
+            }
+            for(int i = 0; i < descriptionDiv.indexOf("</p>"); i++){
+                movieDescription += descriptionDiv.charAt(i);
+            }
+        } catch(Exception e){
+            System.out.println(e.toString());
+        }
         return movieDescription;
     }
     
-    public String getPosterLink(String pageLink){
+    public static String getPosterLink(String pageLink){
         String posterLink = "";
-        //TODO
+        try {
+            Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
+            Element e = d.body();
+            String html = e.toString();
+            String posterDiv = "";
+            for(int i = html.indexOf("class=\"image\">")+14; i < html.length(); i++){
+                posterDiv += html.charAt(i);
+            }
+            for(int i = posterDiv.indexOf("src=\"")+5; i < posterDiv.indexOf(".jpg\"")+4; i++){
+                posterLink += posterDiv.charAt(i);
+            }
+        } catch(Exception e){
+            System.out.println(e.toString());
+        }
         return posterLink;
     }
     
-    public String[] getMovieActors(String pageLink){
+    public static String[] getMovieActors(String pageLink){
         String[] movieActors = {};
         //TODO
         return movieActors;
