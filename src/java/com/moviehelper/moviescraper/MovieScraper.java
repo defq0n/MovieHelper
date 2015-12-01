@@ -213,9 +213,6 @@ public class MovieScraper {
                 }
             }
         }
-        
-        
-        
         return movieArray;
     }
     
@@ -270,7 +267,7 @@ public class MovieScraper {
     }
     
     /**
-    * getMovieDescription parses through the movie's page html and returns three actors.
+    * getMovieActors parses through the movie's page html and returns three actors.
     * @author defq0n
     * @param pageLink is the extended imdb url for the movie page.
     * @return movieActors String containing three actors.
