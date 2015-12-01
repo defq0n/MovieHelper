@@ -63,3 +63,7 @@ footer p {
     color: #EFEFEF;
     text-align: center;
 }
+
+li {
+    display: inline;
+}
