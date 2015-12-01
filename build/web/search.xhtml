@@ -1,37 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+<!-- 
+    This page allows the logged in user to search for a movie. If the user is not logged in they will be prompted with 
+    a link to login.xhtml. There is a link at the top of the page "My Profile", that brings the user to profile.xhtml.
+    The logo brings the user back to index.xhtml.
+    @defq0n & zjfoede
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Movie Helper - Search</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet name="css/searchStyles.css" />
+      <title> Movie Helper - Search </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <h:outputStylesheet name="css/searchStyles.css" />
+      <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
     </h:head>
-    <h:body styleClass="background">
-        <p>
-            Movie Helper
-            <div class="user_info_panel">
-                <h:panelGroup rendered="#{!user.loggedIn}">
-                    <a href="login.xhtml">Log in</a><br/> 
-                    <a href="register.xhtml">Register</a>
-                </h:panelGroup>
-                <h:panelGroup rendered="#{user.loggedIn}">
-                    #{user.username}<br/>
-                    <a href="profile.xhtml">My Profile</a>
-                    <h:form>
-                        <h:commandLink value="Log Out" action="#{user.logout()}"/>
-                    </h:form>
-                </h:panelGroup>
+    <h:body>
+      <h:panelGroup rendered="#{!user.loggedIn}"> 
+        <div class="header">
+            <h1> <a href="index.xhtml"> Movie Helper </a> </h1>
+        </div>
+        <div class="login-text"> 
+          <p> Please login by clicking this <a href="index.xhtml">link... </a> </p>
+        </div>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{user.loggedIn}">
+        <div class="header">
+            <h1> <a href="index.xhtml"> Movie Helper </a> </h1>      
+        </div>
+        <div class="container">
+            <div class="options">
+                <ul>
+                    <li><a href="profile.xhtml">My Profile</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
             </div>
-        </p>
-        <div class="search_panel">
-        <h:form>
+          <div class="form-container"> 
+            <h:form class="form">
             <p>
                 Find some 
                 <h:selectOneMenu value="#{search.genre}">
@@ -59,40 +63,43 @@ and open the template in the editor.
             
             <h:commandButton value="Search" styleClass="search_button"
                              action="#{search.dummySearch()}"/>
-        </h:form>
-        <h:form>
-            <h:commandButton value="I'm feelin' lucky" styleClass="search_button"
-                             action="#{search.dummyRandomSearch()}"/>
-        </h:form>
+            </h:form>
+          </div>
+          <div class="movie-container">
+            <h:panelGroup rendered="#{search.hasResults()}">
+              <h:dataTable value="#{search.results}" var="result">
+                  <h:column>
+                      <div class="movie_panel">
+                          <h:panelGrid columns="3">
+                              <h:panelGroup>
+                                  <img src="resources/img/fillerPoster.png" class="movie_poster_thumbnail"/>
+                                  <h:form styleClass="details_button">
+                                      <h:button value="Details" outcome="movie"/>
+                                  </h:form>
+                              </h:panelGroup>
+                              
+                              <h:panelGroup styleClass="movie_title">
+                                  <p class="movie_title">
+                                      #{result.name}
+                                  </p>
+                                  <p>
+                                      #{result.description}
+                                  </p>
+                              </h:panelGroup>
+                              
+                              <h:panelGroup styleClass="movie_rating">
+                                  Rating: #{result.rating} / 10
+                              </h:panelGroup>
+                          </h:panelGrid>
+                      </div>
+                  </h:column>
+              </h:dataTable>
+            </h:panelGroup>
+          </div>
         </div>
-        <h:panelGroup rendered="#{search.hasResults()}">
-            <h:dataTable value="#{search.results}" var="result">
-                <h:column>
-                    <div class="movie_panel">
-                        <h:panelGrid columns="3">
-                            <h:panelGroup>
-                                <img src="resources/img/fillerPoster.png" class="movie_poster_thumbnail"/>
-                                <h:form styleClass="details_button">
-                                    <h:button value="Details" outcome="movie"/>
-                                </h:form>
-                            </h:panelGroup>
-                            
-                            <h:panelGroup styleClass="movie_title">
-                                <p class="movie_title">
-                                    #{result.name}
-                                </p>
-                                <p>
-                                    #{result.description}
-                                </p>
-                            </h:panelGroup>
-                            
-                            <h:panelGroup styleClass="movie_rating">
-                                Rating: #{result.rating} / 10
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </div>
-                </h:column>
-            </h:dataTable>
-        </h:panelGroup>
+      </h:panelGroup>
+        <footer>
+            <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>
+        </footer>
     </h:body>
 </html>

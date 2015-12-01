@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+    Register.xhtml allows the user to register for the website. There are three forms, one for username, and two for 
+    entering password and confirming it. 
+    @author defq0n & zjfoede
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -11,37 +10,38 @@ and open the template in the editor.
     <h:head>
         <title>Movie Helper - Register</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet name="css/registerStyles.css" />
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'/>
+        <h:outputStylesheet name="css/reglogStyles.css" />
     </h:head>
-    <h:body styleClass="background">
-        <p>
-            Movie Helper
-            <div class="user_info_panel">
-                <h:panelGroup rendered="#{!user.loggedIn}">
-                    <a href="login.xhtml">Log in</a><br/> 
-                </h:panelGroup>
-                <h:panelGroup rendered="#{user.loggedIn}">
-                    #{user.username}<br/>
-                    <a href="profile.xhtml">My Profile</a>
-                </h:panelGroup>
+    <h:body>
+        <div class="header">
+            <h1> <a href="index.xhtml">Movie Helper </a> </h1>
+        </div>
+        <div class="container">
+            <h2> Login to MovieHelper! </h2>
+            <div class="form-container">
+                <h:form class="form">
+                    <h:panelGrid columns="3">
+                        Username:
+                        <h:inputText value="#{user.username}" id="name" required="true"
+                                     label="Username"/>
+                        <h:message for="name" errorClass="error"/>
+                        Password:
+                        <h:inputSecret value="#{user.password}" id="password" required="true"
+                                       label="Password"/>
+                        <h:message for="password" errorClass="error"/>
+                        Confirm Password:
+                        <h:inputSecret value="#{user.passwordValidation}" id="passwordValidate"
+                                       required="true" label="Password Confirmation"/>
+                        <h:message for="passwordValidate" errorClass="error"/>
+                    </h:panelGrid>
+                    <h:commandButton value="Register" action="#{user.register()}"/>
+                </h:form>
             </div>
-        </p>
-        <h:form>
-            <h:panelGrid columns="3">
-                Username:
-                <h:inputText value="#{user.username}" id="name" required="true"
-                             label="Username"/>
-                <h:message for="name" errorClass="error"/>
-                Password:
-                <h:inputSecret value="#{user.password}" id="password" required="true"
-                               label="Password"/>
-                <h:message for="password" errorClass="error"/>
-                Confirm Password:
-                <h:inputSecret value="#{user.passwordValidation}" id="passwordValidate"
-                               required="true" label="Password Confirmation"/>
-                <h:message for="passwordValidate" errorClass="error"/>
-            </h:panelGrid>
-            <h:commandButton value="Register" action="#{user.register()}"/>
-        </h:form>
+        </div>
+        <footer>
+            <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>
+        </footer>
     </h:body>
 </html>
+

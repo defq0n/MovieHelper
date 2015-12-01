@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+    movie.xhtml displays information about a specific movie.
+    @author defq0n & zjfoede
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -13,53 +11,51 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/movieStyles.css" />
     </h:head>
-    <h:body styleClass="background">
-        Movie Helper
-        <div class="user_info_panel">
-            <h:panelGroup rendered="#{!user.loggedIn}">
-                <a href="login.xhtml">Log in</a><br/> 
-                <a href="register.xhtml">Register</a>
-            </h:panelGroup>
-            <h:panelGroup rendered="#{user.loggedIn}">
-                #{user.username}<br/>
-                <a href="profile.xhtml">My Profile</a>
-                <h:form>
-                    <h:commandLink value="Log Out" action="#{user.logout()}"/>
-                </h:form>
-            </h:panelGroup>
+    <h:body>
+        <div class="header">
+            <h1> <a href="index.xhtml">Movie Helper </a> </h1>
         </div>
-        
-        <h:panelGrid columns="2" styleClass="movie_media_panel" columnClasses="column_1, column_2">
-            <h:panelGroup>
-                Official Poster
-            </h:panelGroup>
-            
-            <h:panelGroup styleClass="column2">
-                Trailer
-            </h:panelGroup>
-            
-            <h:panelGroup>
-                <img src="resources/img/fillerPoster.png" class="movie_poster"/><br/>
-            </h:panelGroup>
-            
-            <h:panelGroup styleClass="column2">
-                <object type="application/x-shockwave-flash" style="width:800px; height:656px;" data="//www.youtube.com/v/HPPj6viIBmU?color2=FBE9EC&amp;rel=0&amp;hd=1&amp;version=3&amp;modestbranding=1">
-                    <param name="movie" value="//www.youtube.com/v/HPPj6viIBmU?color2=FBE9EC&amp;rel=0&amp;hd=1&amp;version=3&amp;modestbranding=1" />
-                    <param name="allowFullScreen" value="true" />
-                    <param name="allowscriptaccess" value="always" />
-                </object>
-            </h:panelGroup>
-        </h:panelGrid>
-        <p class="movie_title">Dummy Movie</p>
-        <p>Rated 5/10 by 1 user</p>
-        <p>A dummy movie for testing purposes.</p>
-        <h:form>
-            <h:commandLink value="Return to search page" action="search"/>
-        </h:form>
-        <div class="review_panel">
-            Reviewer: TestUser&#160;&#160;&#160;&#160;Rating: 5/10<br/>
-            "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. A solid 5 from me."
-        </div>
-        
+        <div class="container">
+            <div class="options">
+                <ul>
+                    <li><a href="profile.xhtml">My Profile</a></li>
+                    |
+                    <li><a href="search.xhtml">Search</a></li>
+                    |
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+            <h:panelGrid columns="2" styleClass="movie_media_panel" columnClasses="column_1, column_2">
+                <h:panelGroup>
+                    Official Poster
+                </h:panelGroup>
+
+                <h:panelGroup styleClass="column2">
+                    Trailer
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <img src="resources/img/fillerPoster.png" class="movie_poster"/><br/>
+                </h:panelGroup>
+
+                <h:panelGroup styleClass="column2">
+                    <object type="application/x-shockwave-flash" style="width:800px; height:656px;" data="//www.youtube.com/v/HPPj6viIBmU?color2=FBE9EC&amp;rel=0&amp;hd=1&amp;version=3&amp;modestbranding=1">
+                        <param name="movie" value="//www.youtube.com/v/HPPj6viIBmU?color2=FBE9EC&amp;rel=0&amp;hd=1&amp;version=3&amp;modestbranding=1" />
+                        <param name="allowFullScreen" value="true" />
+                        <param name="allowscriptaccess" value="always" />
+                    </object>
+                </h:panelGroup>
+            </h:panelGrid>
+            <p class="movie_title">Dummy Movie</p>
+            <p>Rated 5/10 by 1 user</p>
+            <p>A dummy movie for testing purposes.</p>
+            <div class="review_panel">
+                Reviewer: TestUser&#160;&#160;&#160;&#160;Rating: 5/10<br/>
+                "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. A solid 5 from me."
+            </div>
+        </div>     
+        <footer>
+            <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>
+        </footer>
     </h:body>
 </html>

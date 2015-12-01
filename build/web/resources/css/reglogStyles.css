@@ -1,5 +1,5 @@
 /**
-    Stylesheet for search.xhtml.
+    Stylesheet for register.xhtml and login.xhtml.
     @author defq0n
 */
 body {
@@ -9,21 +9,16 @@ body {
 .header {
     height: 50px;
     background-color: #333333;
+    margin-bottom: -.5%;
     width: 100%;
     margin-top: -1.5%;
 }
 
 .container {
-    width: 1280px;
+    width: 720px;
     height: 150px;
     margin: 0 auto;
     background-color: honeydew;
-}
-
-.header a {
-    color: #EFEFEF;
-    padding-left: 15px;
-    text-decoration: none;
 }
 
 .form {
@@ -34,21 +29,19 @@ body {
     display: flex;
 }
 
-.container a {
+h2 {
     text-align: center;
-    display: block;
+}
+
+h1 {
+    color: #EFEFEF;
+    padding-left: 15px;
     text-decoration: none;
 }
 
-.movie-container{
-    background-color: honeydew;
-    margin-top: .5%;
-    border: 1px solid #EFEFEF;
-}
-
-.movie-container img {
-    height: 160px;
-    width: 110px;
+a {
+    text-decoration: none;
+    color: #EFEFEF;
 }
 
 footer {
@@ -62,8 +55,4 @@ footer {
 footer p {
     color: #EFEFEF;
     text-align: center;
-}
-
-li {
-    display: inline;
 }
