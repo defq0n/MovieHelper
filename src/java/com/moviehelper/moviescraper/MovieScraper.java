@@ -6,6 +6,7 @@
 package com.moviehelper.moviescraper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +25,7 @@ public class MovieScraper {
         //testFormatString();
         //testParseMoviesHTML();
         //testGetMovieInformation();
-        System.out.println(getPosterLink("/title/tt0241527/"));
+        System.out.println(Arrays.toString(getMovieActors("/title/tt0241527/")));
     }
     
     /**
@@ -249,8 +250,31 @@ public class MovieScraper {
     }
     
     public static String[] getMovieActors(String pageLink){
-        String[] movieActors = {};
-        //TODO
+        String[] movieActors = {"", "", ""};
+        try {
+            Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
+            Element e = d.body();
+            String html = e.toString();
+            String actorsDiv = "";
+            for(int i = html.indexOf("<h4 class=\"inline\">Stars:</h4>")+30; i < html.indexOf("See full cast and crew"); i++){
+                actorsDiv += html.charAt(i);
+            }
+            String tempDiv = actorsDiv;
+            for(int i = 0; i < 3; i++){ //we will get the first three top actors
+                String actor = "";
+                String t = "itemprop=\"url\"><span class=\"itemprop\" itemprop=\"name\">";
+                for(int j = tempDiv.indexOf(t)+t.length(); j < tempDiv.indexOf("</span></a>"); j++){
+                    actor += tempDiv.charAt(j);
+                }
+                movieActors[i] = actor;
+                tempDiv = "";
+                for(int j = actorsDiv.indexOf(actor + "</span>")+actor.length()+7; j < actorsDiv.length(); j++){
+                    tempDiv += actorsDiv.charAt(j);
+                }
+            }
+        } catch(Exception e){
+            System.out.println(e.toString());
+        }
         return movieActors;
     }
 }
