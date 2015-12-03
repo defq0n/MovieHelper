@@ -5,13 +5,17 @@
  */
 package com.moviehelper.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
@@ -23,7 +27,7 @@ import javax.enterprise.context.SessionScoped;
 @Named(value = "user")
 @SessionScoped
 public class UserBean implements Serializable {
-    
+    DatabaseBean database;
     public UserBean()
     {
         username = "";
@@ -31,6 +35,7 @@ public class UserBean implements Serializable {
         loggedIn = false;
         faveMovie = "";
         reviews = new HashMap<>();
+        database = new DatabaseBean();
     }
 
     public String getUsername() {
@@ -105,7 +110,15 @@ public class UserBean implements Serializable {
     {
         addReview("Dummy Movie", 5, "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. "
                                     + "A solid 5 from me.");
-        //STUB
+        try {
+            //STUB
+            database.addUser(username, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.toString();
+        } catch (IOException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (!password.equals(passwordValidation))
         {
             //Passwords did not match

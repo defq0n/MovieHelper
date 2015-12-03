@@ -10,10 +10,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.inject.Named;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
@@ -44,7 +49,18 @@ public class DatabaseBean {
     public void addUser(String username, String password)
             throws SQLException, IOException {
         String query = SQL.getSQL("create-user");
-        Connection dbConnection = movieSource.getConnection();
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Connection dbConnection = movieSource.getConnection("admin","team4");
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             statement.setString(1, username);
