@@ -58,7 +58,9 @@ public class DatabaseBean {
         } catch (NamingException ex) {
             Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         Connection dbConnection = movieSource.getConnection("admin","team4");
+        
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             statement.setString(1, username);
@@ -74,8 +76,19 @@ public class DatabaseBean {
     public boolean userExists(String username) 
             throws SQLException, IOException {
         String query = SQL.getSQL("user-exists");
-        Connection dbConnection;
-        dbConnection = movieSource.getConnection();
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection();
+        
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             statement.setString(1, username);
