@@ -44,18 +44,16 @@ public class DatabaseBean {
  
     
 //USER DATABASE/////////////////////////////////////////////////////////////////    
-    //TODO: create-user sql query
     // Adds a user to the database
     public void addUser(String username, String password)
             throws SQLException, IOException {
         String query = SQL.getSQL("create-user");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
         Context initialContext = null;
         try {
             initialContext = new InitialContext();
-        } catch (NamingException ex) {
-            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             movieSource = (DataSource) initialContext.lookup("jdbc/movies");
         } catch (NamingException ex) {
             Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
