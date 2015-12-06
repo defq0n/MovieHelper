@@ -131,19 +131,13 @@ public class SearchBean implements Serializable
     
     /**
      * A dummy action method for UI prototyping.
+     * @param genre
+     * @param minReleaseYear
      * @return "search" action.
      */
-    public String dummySearch()
+    public String searchAction(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword)
     {
-            //        results.clear();
-//        List<String> contributors = new ArrayList<>();
-//        contributors.add("Billy Bob");
-//        contributors.add("Mike");
-//        contributors.add("Joe");
-//        results.add(new MovieBean("Dummy movie", "A dummy movie for testing purposes",
-//                    "Dummy genre", "April 14th, 2020", contributors, 5));
-//        return "search";
-            
+        
             //results will contain the search results in a list
             //currently a list of moviebean objects
             //it is rendered conditionally on the search page

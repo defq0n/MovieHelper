@@ -60,9 +60,10 @@
                 <h:inputText value="#{search.keyword}"/>
                 .
             </p>
-            
+                <p>
             <h:commandButton value="Search" styleClass="search_button"
-                             action="#{search.dummySearch()}"/>
+                             action="#{search.searchAction(search.genre, search.minReleaseYear, search.maxReleaseYear, serach.rating, search.keyword)}"/>
+                </p>
             </h:form>
           </div>
           <div class="movie-container">
