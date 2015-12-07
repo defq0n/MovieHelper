@@ -46,7 +46,7 @@ public class DatabaseBean {
         //TODO: get movie: possibly use search movie stuff?
             //need sql file
     
-        //TODO: search movie multiple results
+        //DONE***TODO: search movie
 
  
     //rate movie?
@@ -185,12 +185,8 @@ public class DatabaseBean {
             statement.setString(6, keyword);
             statement.setString(7, keyword);
             ResultSet results = statement.executeQuery();
-//            results.next();
 
-////////TODO: Handle multiple results
-                //this function should be modified to return a list of movie beans
-                //loop through 'results' with while(results.next()) to get next movie
-            //create movie bean and return it
+            //create movie bean list of results and return it
             while(results.next()) {
                 dbResults.add(new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating")));
             }
