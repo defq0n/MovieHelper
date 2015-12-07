@@ -162,8 +162,8 @@ public class SearchBean implements Serializable
             //keyword
             //use search criteria and send it to the database bean
         try {
-            MovieBean dbResult = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
-            results.add(dbResult);
+            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
+//            results.add(dbResult);
             //multiple results: database will return results in the form of an arraylist????
             //single result: database will return results in the form of an moviebean?
             

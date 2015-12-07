@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -153,9 +155,10 @@ public class DatabaseBean {
 //MOVIE DATABASE////////////////////////////////////////////////////////////////
     //TODO: Multiple results
     //searches the database for a movie matching the given criteria
-    public MovieBean searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
+    public List<MovieBean> searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
             throws SQLException, IOException {
         String query = SQL.getSQL("search-movie");
+        List<MovieBean> dbResults = new ArrayList<>();
         
         // I'm getting a nullpointer exception from the DataSource if it is not
         // initialized in this way
@@ -182,14 +185,16 @@ public class DatabaseBean {
             statement.setString(6, keyword);
             statement.setString(7, keyword);
             ResultSet results = statement.executeQuery();
-            results.next();
+//            results.next();
 
 ////////TODO: Handle multiple results
                 //this function should be modified to return a list of movie beans
                 //loop through 'results' with while(results.next()) to get next movie
             //create movie bean and return it
-            MovieBean movieResult = new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"));
-            return movieResult;
+            while(results.next()) {
+                dbResults.add(new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating")));
+            }
+            return dbResults;
             
             // figure out what to return
         } finally {
