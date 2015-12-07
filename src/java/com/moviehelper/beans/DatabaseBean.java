@@ -39,10 +39,13 @@ public class DatabaseBean {
 
     
     //TODO: MOVIE DATABASE STUFF
-        //TODO: add movie
+        //TODO: add movie need info for database fields
+
+        //TODO: get movie: possibly use search movie stuff?
             //need sql file
-        //TODO: get movie
-            //need sql file
+    
+        //TODO: search movie multiple results
+
  
     //rate movie?
     //review movie?
@@ -148,22 +151,46 @@ public class DatabaseBean {
 ////////////////////////////////////////////////////////////////////////////////
 
 //MOVIE DATABASE////////////////////////////////////////////////////////////////
-    //TODO: movie search sql query
+    //TODO: Multiple results
     //searches the database for a movie matching the given criteria
-    public void searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
+    public MovieBean searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
             throws SQLException, IOException {
         String query = SQL.getSQL("search-movie");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         Connection dbConnection = movieSource.getConnection();
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
-            //TODO: set each search criteria 
-            // i.e. statement.setString(1, genre)
+            
+            //add wildcard '%' to keyword for searching
+            keyword = "%" + keyword + "%";
+            
+            statement.setString(1, genre);
+            statement.setString(2, minReleaseYear);
+            statement.setString(3, maxReleaseYear);
+            statement.setDouble(4, rating);
+            statement.setString(5, keyword);
+            statement.setString(6, keyword);
+            statement.setString(7, keyword);
             ResultSet results = statement.executeQuery();
             results.next();
-            //TODO: do stuff with the results contained in resultSet
-                //movie name
-            //create movie bean and return it?
-            //MovieBean movieResult = new MovieBean();
+
+////////TODO: Handle multiple results
+                //this function should be modified to return a list of movie beans
+                //loop through 'results' with while(results.next()) to get next movie
+            //create movie bean and return it
+            MovieBean movieResult = new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"));
+            return movieResult;
+            
             // figure out what to return
         } finally {
             dbConnection.close();
@@ -172,6 +199,35 @@ public class DatabaseBean {
     
     public void addMovie(String title, String genre, String releaseYear, int rating)
             throws SQLException, IOException {
+        String query = SQL.getSQL("add-movie");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection("admin","team4");
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            //switch ordering of these to match what is needed in sql query file
+            statement.setString(1, title);
+//            statement.setString(2, poster_link);
+//            statement.setString(3, trailer_link);
+            statement.setInt(4, rating);
+//            statement.setString(5, actors);
+            statement.setString(5, genre);
+//            statement.setString(6, description);
+            statement.setString(7, query);
+            statement.executeUpdate();
+        } finally {
+            dbConnection.close();
+        }
         
     }
 ////////////////////////////////////////////////////////////////////////////////

@@ -33,7 +33,7 @@ public class SearchBean implements Serializable
         ratings = new ArrayList<>();
         genres = new ArrayList<>();
         dates.add("any year");
-        for (int i = 1950; i <= 2010; i += 10)
+        for (int i = 1950; i <= 2020; i += 10)
         {
             dates.add(Integer.toString(i));
         }
@@ -135,7 +135,7 @@ public class SearchBean implements Serializable
      */
     public String dummySearch()
     {
-            //        results.clear();
+        results.clear();
 //        List<String> contributors = new ArrayList<>();
 //        contributors.add("Billy Bob");
 //        contributors.add("Mike");
@@ -162,7 +162,8 @@ public class SearchBean implements Serializable
             //keyword
             //use search criteria and send it to the database bean
         try {
-            database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
+            MovieBean dbResult = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
+            results.add(dbResult);
             //multiple results: database will return results in the form of an arraylist????
             //single result: database will return results in the form of an moviebean?
             
