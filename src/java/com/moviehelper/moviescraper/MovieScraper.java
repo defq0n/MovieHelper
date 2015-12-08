@@ -24,8 +24,8 @@ public class MovieScraper {
     public static void main(String[] args) {
         //testFormatString();
         //testParseMoviesHTML();
-        //testGetMovieInformation();
-        System.out.println(getPosterLink("/title/tt0241527/"));
+        testGetMovieInformation();
+        //System.out.println(getPosterLink("/title/tt0241527/"));
     }
     
     /**
@@ -124,7 +124,7 @@ public class MovieScraper {
      * testGetMovieInformation() tests getMovieInformation().
      * @author defq0n
      */
-    private static void testGetMovieInformation(){
+    private static void testGetMovieListInformation(){
         System.out.println("Type in a movie you want to search for and get the moives html results: ");
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String moviesHTML[] = parseMoviesHTML(sc.next());
@@ -210,10 +210,20 @@ public class MovieScraper {
                     tempMovie.setMovieDescription(getMovieDescription(pageLink));
                     tempMovie.setPosterLink(getPosterLink(pageLink));
                     tempMovie.setActors(getMovieActors(pageLink));
+                    tempMovie.setGenre(getGenre(pageLink));
+                    movieArray.add(tempMovie);
                 }
             }
         }
         return movieArray;
+    }
+    
+    private static void testGetMovieInformation(){
+        String[][] m = getMovieListInformation(parseMoviesHTML(formatString("harry potter")));
+        ArrayList<Movie> ar = getMovieInformation(m);
+        for(Movie t : ar){
+            System.out.println(t.toString());
+        }
     }
     
     /**
@@ -279,7 +289,6 @@ public class MovieScraper {
         for(int i = genreDiv.indexOf("itemprop=\"genre\"")+17; i < genreDiv.indexOf("</span>"); i++){
             genre += genreDiv.charAt(i);
         }
-        System.out.println(genre);
     } catch(Exception e){
         System.out.println(e.toString());
     }

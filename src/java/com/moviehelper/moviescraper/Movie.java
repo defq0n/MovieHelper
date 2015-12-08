@@ -16,6 +16,7 @@ public class Movie {
     private String description;
     private String[] actors;
     private String posterLink;
+    private String genre;
     
     public Movie(String name){
         this.name = name;
@@ -31,7 +32,7 @@ public class Movie {
     
     @Override
    public String toString(){
-       String retur = name + ", " + year + ", " + description + ", " + posterLink + ", ";
+       String retur = name + ", " + year + ", " + description + ", " + posterLink + ", " + genre + ", ";
        for(int i = 0; i < actors.length; i++){
            retur += actors[i] + ", ";
        }
@@ -44,6 +45,14 @@ public class Movie {
     
    public String getMovieYear(){
        return this.year;
+   }
+   
+   public String getGenre(){
+       return this.genre;
+   }
+   
+   public void setGenre(String genre){
+       this.genre = genre;
    }
    
    public void setMovieYear(String year){
