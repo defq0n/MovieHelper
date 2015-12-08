@@ -31,36 +31,41 @@ public class DatabaseBean {
     @Resource(name="jdbc/movies")
      private DataSource movieSource;   
     //TODO: USER DATABASE STUFF
-        //***TODO: add user
-        //TODO: verify password
-        //***TODO: user exists
+        //DONE***TODO: add user
+    
+        //DONE***TODO: verify password
+
+        //DONE***TODO: user exists
+
     
     //TODO: MOVIE DATABASE STUFF
         //TODO: add movie
+            //need sql file
         //TODO: get movie
+            //need sql file
  
     //rate movie?
     //review movie?
  
     
 //USER DATABASE/////////////////////////////////////////////////////////////////    
-    //TODO: create-user sql query
     // Adds a user to the database
     public void addUser(String username, String password)
             throws SQLException, IOException {
         String query = SQL.getSQL("create-user");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
         Context initialContext = null;
         try {
             initialContext = new InitialContext();
-        } catch (NamingException ex) {
-            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             movieSource = (DataSource) initialContext.lookup("jdbc/movies");
         } catch (NamingException ex) {
             Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         Connection dbConnection = movieSource.getConnection("admin","team4");
+        
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             statement.setString(1, username);
@@ -71,13 +76,23 @@ public class DatabaseBean {
         }
     }
     
-    //TODO: user-exists sql query
-    // Checks the database to see if a user exists
+    // Checks the database to see if "username" exists
     public boolean userExists(String username) 
             throws SQLException, IOException {
         String query = SQL.getSQL("user-exists");
-        Connection dbConnection;
-        dbConnection = movieSource.getConnection();
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection();
+        
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             statement.setString(1, username);
@@ -95,11 +110,24 @@ public class DatabaseBean {
         }
     }
     
-    //TODO: password sql query
+    // checks to see if "password" matches the password stored in the database
+    // for "username"
     public boolean checkPassword(String username, String password)
             throws SQLException, IOException {
         String query = SQL.getSQL("password-query");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         Connection dbConnection = movieSource.getConnection();
+        
         try {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             statement.setString(1, username);

@@ -92,38 +92,67 @@ public class UserBean implements Serializable {
     /**
      * Action method to handle requirements of logging in
      * @return the "search" action
+     * TODO: handle user not existing case
+     * TODO: handle wrong password case
+     * TODO: catch blocks return exception string, should return and error page
      */
     public String login()
     {
-        addReview("Dummy Movie", 5, "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. "
-                                    + "A solid 5 from me.");
-        //STUB
-        loggedIn = true;
-        return "search";
+            addReview("Dummy Movie", 5, "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. "
+                    + "A solid 5 from me.");
+        try{ 
+            // if user exists in database
+            if(database.userExists(username)) {
+                // user supplied the correct password
+                if(database.checkPassword(username, password)) {
+                    loggedIn = true;
+                    return "search";
+                }
+                // user did not supply the correct password
+                else {
+                    //error: wrong password
+                }
+            }        
+            // user does not exist in database
+            else {
+                //error: user doesn't exist
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.toString();
+        } catch (IOException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.toString();
+        }
+        return "error";
     }
     
     /**
      * Action method to handle requirements of registration
      * @return the "search" action if successful, the "register" action otherwise
+     * TODO: cleanup
+     * TODO: catch blocks return exception string, should return and error page
+     * TODO: make sure user does not already exist
      */
     public String register()
     {
         addReview("Dummy Movie", 5, "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. "
                                     + "A solid 5 from me.");
+        if (!password.equals(passwordValidation))
+        {
+            //Passwords did not match
+            return "register";
+        }
         try {
-            //STUB
             database.addUser(username, password);
         } catch (SQLException ex) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
             return ex.toString();
         } catch (IOException ex) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.toString();
         }
-        if (!password.equals(passwordValidation))
-        {
-            //Passwords did not match
-            return "register";
-        }
+
         loggedIn = true;
         return "search";
     }
