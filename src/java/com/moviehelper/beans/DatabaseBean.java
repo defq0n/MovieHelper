@@ -152,8 +152,7 @@ public class DatabaseBean {
     }
 ////////////////////////////////////////////////////////////////////////////////
 
-//MOVIE DATABASE////////////////////////////////////////////////////////////////
-    //TODO: Multiple results
+//MOVIE DATABASE///////////////////////////////////////////////////////////////
     //searches the database for a movie matching the given criteria
     public List<MovieBean> searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
             throws SQLException, IOException {
@@ -188,17 +187,16 @@ public class DatabaseBean {
 
             //create movie bean list of results and return it
             while(results.next()) {
-                dbResults.add(new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating")));
+                dbResults.add(new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link")));
             }
             return dbResults;
             
-            // figure out what to return
         } finally {
             dbConnection.close();
         }
     }
     
-    public void addMovie(String title, String genre, String releaseYear, int rating)
+    public void addMovie(String title, String posterLink, String trailerLink, String actors, String description, String genre, String releaseYear, int rating)
             throws SQLException, IOException {
         String query = SQL.getSQL("add-movie");
         
@@ -218,12 +216,12 @@ public class DatabaseBean {
             PreparedStatement statement = dbConnection.prepareStatement(query);
             //switch ordering of these to match what is needed in sql query file
             statement.setString(1, title);
-//            statement.setString(2, poster_link);
-//            statement.setString(3, trailer_link);
+            statement.setString(2, posterLink);
+            statement.setString(3, trailerLink);
             statement.setInt(4, rating);
-//            statement.setString(5, actors);
+            statement.setString(5, actors);
             statement.setString(5, genre);
-//            statement.setString(6, description);
+            statement.setString(6, description);
             statement.setString(7, query);
             statement.executeUpdate();
         } finally {

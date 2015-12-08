@@ -72,9 +72,9 @@
                       <div class="movie_panel">
                           <h:panelGrid columns="3">
                               <h:panelGroup>
-                                  <img src="resources/img/fillerPoster.png" class="movie_poster_thumbnail"/>
+                                  <img src="#{result.imageURL}" class="movie_poster_thumbnail"/>
                                   <h:form styleClass="details_button">
-                                      <h:button value="Details" outcome="movie"/>
+                                      <h:button value="Details" outcome="#{user.setCurrentMovie(result)}"/>
                                   </h:form>
                               </h:panelGroup>
                               

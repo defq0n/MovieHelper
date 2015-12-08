@@ -35,12 +35,12 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <img src="resources/img/fillerPoster.png" class="movie_poster"/><br/>
+                    <img src="#{user.currentMovie.imageURL}" class="movie_poster"/><br/>
                 </h:panelGroup>
 
                 <h:panelGroup styleClass="column2">
-                    <object type="application/x-shockwave-flash" style="width:800px; height:656px;" data="//www.youtube.com/v/HPPj6viIBmU?color2=FBE9EC&amp;rel=0&amp;hd=1&amp;version=3&amp;modestbranding=1">
-                        <param name="movie" value="//www.youtube.com/v/HPPj6viIBmU?color2=FBE9EC&amp;rel=0&amp;hd=1&amp;version=3&amp;modestbranding=1" />
+                    <object type="application/x-shockwave-flash" style="width:800px; height:656px;" data="#{user.currentMovie.trailerURL}">
+                        <param name="movie" value="#{user.currentMovie.trailerURL}" />
                         <param name="allowFullScreen" value="true" />
                         <param name="allowscriptaccess" value="always" />
                     </object>

@@ -144,30 +144,8 @@ public class SearchBean implements Serializable
 //                    "Dummy genre", "April 14th, 2020", contributors, 5));
 //        return "search";
             
-            //results will contain the search results in a list
-            //currently a list of moviebean objects
-            //it is rendered conditionally on the search page
-            //if results exist they are displayed, returning "search"
-            
-            
-            //get criteria user has selected for the search
-            //how to handle null cases?
-            //assume everything is filled?
-            //treat a null value as a wildcard (i.e. select *)
-            //genre
-        
-            //min release date
-            //max release date
-            //rating
-            //keyword
-            //use search criteria and send it to the database bean
         try {
-            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
-//            results.add(dbResult);
-            //multiple results: database will return results in the form of an arraylist????
-            //single result: database will return results in the form of an moviebean?
-            
-            
+            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);           
             return "search";
         } catch (SQLException ex) {
             Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -188,8 +166,8 @@ public class SearchBean implements Serializable
         contributors.add("Billy Bob");
         contributors.add("Mike");
         contributors.add("Joe");
-        results.add(new MovieBean("Random movie", "Looks like someone was feeling lucky",
-                    "Random genre", "April 14th, 2020", contributors, 5));
+//        results.add(new MovieBean("Random movie", "Looks like someone was feeling lucky",
+//                    "Random genre", "April 14th, 2020", contributors, 5));
         return "search";
     }
     
