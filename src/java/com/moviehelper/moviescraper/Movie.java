@@ -21,6 +21,15 @@ public class Movie {
         this.name = name;
     }
     
+    @Override
+    public String toString(){
+        String retur = name + ", " + year + ", " + description + ", " + posterLink + ", ";
+        for(int i = 0; i < actors.length; i++){
+            retur += actors[i] + ", ";
+        }
+        return retur;
+    }
+    
     public Movie(String name, String year, String description, String posterLink, String actors[]){
         this.name = name;
         this.year = year;

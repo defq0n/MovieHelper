@@ -24,8 +24,10 @@ public class MovieScraper {
     public static void main(String[] args) {
         //testFormatString();
         //testParseMoviesHTML();
+        //testGetMovieListInformation();
+        //System.out.println(getPosterLink("/title/tt0241527/"));
         //testGetMovieInformation();
-        System.out.println(getPosterLink("/title/tt0241527/"));
+        getGenre("/title/tt0241527/");
     }
     
     /**
@@ -124,7 +126,7 @@ public class MovieScraper {
      * testGetMovieInformation() tests getMovieInformation().
      * @author defq0n
      */
-    private static void testGetMovieInformation(){
+    private static void testGetMovieListInformation(){
         System.out.println("Type in a movie you want to search for and get the moives html results: ");
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String moviesHTML[] = parseMoviesHTML(sc.next());
@@ -190,6 +192,14 @@ public class MovieScraper {
         return result;
     }
     
+    public static void testGetMovieInformation(){
+        String[][] temp = getMovieListInformation(parseMoviesHTML(formatString("harry potter")));
+        ArrayList<Movie> tempA = getMovieInformation(temp);
+        for (Movie tempA1 : tempA) {
+            System.out.println(tempA1.toString());
+        }
+    }
+    
     /**
     * getMovieInformation gets the movie description, the poster link, and the actors
     * from the list of movies as the parameter. They are returned in an ArrayList<Movie>
@@ -210,6 +220,7 @@ public class MovieScraper {
                     tempMovie.setMovieDescription(getMovieDescription(pageLink));
                     tempMovie.setPosterLink(getPosterLink(pageLink));
                     tempMovie.setActors(getMovieActors(pageLink));
+                    movieArray.add(tempMovie);
                 }
             }
         }
@@ -265,6 +276,27 @@ public class MovieScraper {
         }
         return posterLink;
     }
+    
+    public static String getGenre(String pageLink){
+        String genre = "";
+        try {
+            Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
+            Element e = d.body();
+            String html = e.toString();
+            String genreDiv = "";
+            for(int i = html.indexOf("itemprop=\"genre\""); i < html.indexOf("itemprop=\"description\""); i++){
+                genreDiv += html.charAt(i);
+            }
+            for(int i = genreDiv.indexOf("itemprop=\"genre\"")+17; i < genreDiv.indexOf("</span>"); i++){
+                genre += genreDiv.charAt(i);
+            }
+            System.out.println(genre);
+        } catch(Exception e){
+            System.out.println(e.toString());
+        }
+        return genre;
+    }
+    
     
     /**
     * getMovieActors parses through the movie's page html and returns three actors.
