@@ -266,6 +266,26 @@ public class MovieScraper {
         return posterLink;
     }
     
+    public static String getGenre(String pageLink){
+    String genre = "";
+    try {
+        Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
+        Element e = d.body();
+        String html = e.toString();
+        String genreDiv = "";
+        for(int i = html.indexOf("itemprop=\"genre\""); i < html.indexOf("itemprop=\"description\""); i++){
+            genreDiv += html.charAt(i);
+        }
+        for(int i = genreDiv.indexOf("itemprop=\"genre\"")+17; i < genreDiv.indexOf("</span>"); i++){
+            genre += genreDiv.charAt(i);
+        }
+        System.out.println(genre);
+    } catch(Exception e){
+        System.out.println(e.toString());
+    }
+    return genre;
+}
+    
     /**
     * getMovieActors parses through the movie's page html and returns three actors.
     * @author defq0n
