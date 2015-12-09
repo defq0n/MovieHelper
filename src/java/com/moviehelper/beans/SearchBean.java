@@ -1,5 +1,6 @@
 package com.moviehelper.beans;
 
+import com.moviehelper.moviescraper.Movie;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -66,7 +67,7 @@ public class SearchBean implements Serializable
         return genres;
     }
 
-    public List<MovieBean> getResults()
+    public List<Movie> getResults()
     {
         return results;
     }
@@ -192,7 +193,7 @@ public class SearchBean implements Serializable
     List<Integer> ratings;
     List<String> genres;
 
-    List<MovieBean> results;  //Results of a search
+    List<Movie> results;  //Results of a search
     
     DatabaseBean database;
     

@@ -16,7 +16,9 @@ public class Movie {
     private String description;
     private String[] actors;
     private String posterLink;
+    private String trailerLink;
     private String genre;
+    private int rating;
     
     public Movie(String name){
         this.name = name;
@@ -30,12 +32,24 @@ public class Movie {
         this.actors = actors;
     }
     
+    public Movie(String name, String description, String genre, String year, String[] actors, int rating, String posterLink, String trailerLink)
+    {
+        this.name = name;
+        this.description = description;
+        this.genre = genre;
+        this.year = year;
+        this.actors = actors;
+        this.rating = rating;
+        this.posterLink = posterLink;
+        this.trailerLink = trailerLink;
+    }
+    
     @Override
    public String toString(){
        String retur = name + ", " + year + ", " + description + ", " + posterLink + ", " + genre + ", ";
-       for(int i = 0; i < actors.length; i++){
-           retur += actors[i] + ", ";
-       }
+       //for(int i = 0; i < actors.length; i++){
+           //retur += actors[i] + ", ";
+       //}
        return retur;
    }
     
@@ -90,5 +104,27 @@ public class Movie {
    public void setPageLink(String pageLink){
        this.pageLink = pageLink;
    }
+
+    public int getRating()
+    {
+        return rating;
+    }
+
+    public void setRating(int rating)
+    {
+        this.rating = rating;
+    }
+
+    public String getTrailerLink()
+    {
+        return trailerLink;
+    }
+
+    public void setTrailerLink(String trailerLink)
+    {
+        this.trailerLink = trailerLink;
+    }
+   
+   
 }
 

@@ -6,6 +6,16 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.review_input_panel {
+    background: lightgray;
+}
+
+.review_input_text {
+    width: 400px;
+    height: 200px;
+    white-space: normal;
+}
+
 .header {
     height: 50px;
     background-color: #333333;
@@ -21,7 +31,7 @@ body {
 
 footer {
     background-color: #333333;
-    position: fixed;
+    //position: fixed;
     height: 50px;
     bottom: 0;
     width: 99%;
