@@ -35,20 +35,37 @@
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <img src="#{user.currentMovie.imageURL}" class="movie_poster"/><br/>
+                    <img src="#{movie.imageURL}" class="movie_poster"/><br/>
                 </h:panelGroup>
 
                 <h:panelGroup styleClass="column2">
                     <object type="application/x-shockwave-flash" style="width:800px; height:656px;" data="#{user.currentMovie.trailerURL}">
-                        <param name="movie" value="#{user.currentMovie.trailerURL}" />
+                        <param name="movie" value="#{movie.trailerURL}" />
                         <param name="allowFullScreen" value="true" />
                         <param name="allowscriptaccess" value="always" />
                     </object>
                 </h:panelGroup>
             </h:panelGrid>
-            <p class="movie_title">#{user.currentMovie.name}</p>
+            <p class="movie_title">#{movie.name}</p>
             <p>Rated #{user.currentMovie.rating}/10 by GET NUMBER OF CONTRIBUTORS</p>
             <p>#{user.currentMovie.description}</p>
+            <h:form class="review_input_panel">
+                <h:panelGrid>
+                    <h:panelGroup>
+                        Leave a rating: 
+                        <h:selectOneMenu value="#{movie.userReviewRating}">
+                            <f:selectItems value="#{movie.ratings}"/>
+                        </h:selectOneMenu>
+                        / 10
+                    </h:panelGroup>
+                    <div>
+                        <h:inputTextarea value="#{movie.userReviewText}" styleClass="review_input_text"/>
+                    </div>
+                    
+                    <h:commandButton value="Submit" action="#{movie.review()}"/>
+                    
+                </h:panelGrid>
+            </h:form>
             <div class="review_panel">
                 GET REVIEW INFORMATION FROM THE DATABASE!!!
             </div>

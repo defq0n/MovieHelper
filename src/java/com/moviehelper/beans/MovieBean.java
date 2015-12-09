@@ -5,33 +5,47 @@
  */
 package com.moviehelper.beans;
 
+import com.moviehelper.moviescraper.Movie;
+import java.io.IOException;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 
 import javax.inject.Named;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
  * A bean to store data related to a movie.
  * @author zach
  */
-//@Named(value = "movie")
-//@ConversationScoped
+@Named(value = "movie")
+@SessionScoped
 public class MovieBean implements Serializable
 {
-    public MovieBean(String name, String description, String genre, String releaseDate, List<String> contributors, int rating, String poster_link, String trailer_link)
+    public MovieBean(/*String name, String description, String genre, String releaseDate, List<String> contributors, int rating, String poster_link, String trailer_link*/)
     {
-        this.name = name;
-        this.description = description;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-        this.contributors = contributors;
-        this.rating = rating;
-        this.imageURL = poster_link;
-        this.trailerURL = trailer_link;
+        this.name = "";
+        this.description = "";
+        this.genre = "";
+        this.releaseDate = "";
+        this.contributors = new ArrayList<>();
+        this.rating = 0;
+        this.imageURL = "";
+        this.trailerURL = "";
+        this.userReviewRating = "";
+        this.userReviewText = "";
+        ratings = new ArrayList<>();
+        for (int i = 0; i <= 10; i++) ratings.add(Integer.toString(i));
     }
+    
+    @Inject DatabaseBean database;
+    @Inject UserBean user;
 
     public String getName() {
         return name;
@@ -105,6 +119,57 @@ public class MovieBean implements Serializable
         this.rating = rating;
     }
     
+    public String review() throws IOException, SQLException
+    {
+        System.out.println("review data from moviebean: " + this.name + ", " + this.userReviewText + ", " + user.username);
+        database.addReview(this.name, this.userReviewText, user.getUsername(), this.userReviewRating);
+        return "movie";
+    }
+
+    public String getUserReviewText()
+    {
+        return userReviewText;
+    }
+
+    public void setUserReviewText(String userReviewText)
+    {
+        this.userReviewText = userReviewText;
+    }
+
+    public String getUserReviewRating()
+    {
+        return userReviewRating;
+    }
+
+    public void setUserReviewRating(String userReviewRating)
+    {
+        this.userReviewRating = userReviewRating;
+    }
+
+    public List<String> getRatings()
+    {
+        return ratings;
+    }
+
+    public void setRatings(List<String> ratings)
+    {
+        this.ratings = ratings;
+    }
+    
+    public String loadMovie(Movie m)
+    {
+        System.out.println("name from loadMovie: " + m.getMovieName());
+        this.name = m.getMovieName();
+        this.description = m.getMovieDescription();
+        this.genre = m.getGenre();
+        this.releaseDate = m.getMovieYear();
+        //this.contributors = Arrays.asList(m.getActors());
+        this.rating = m.getRating();
+        this.imageURL = m.getPosterLink();
+        this.trailerURL = m.getTrailerLink();
+        return "movie";
+    }
+    
     private String name;
     private String description;
     private String trailerURL;
@@ -112,6 +177,11 @@ public class MovieBean implements Serializable
     private String genre;
     private String releaseDate;
     private List<String> contributors;
-    private Map<String, String> reviews;    //Map from username to the reveiw
+    private Map<String, String> reviews;   //Map from username to the reveiw
     private int rating;
+    
+    String userReviewText;
+    String userReviewRating;
+    
+    List<String> ratings;
 }

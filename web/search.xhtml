@@ -73,18 +73,18 @@
                       <div class="movie_panel">
                           <h:panelGrid columns="3">
                               <h:panelGroup>
-                                  <img src="#{result.imageURL}" class="movie_poster_thumbnail"/>
+                                  <img src="#{result.posterLink}" class="movie_poster_thumbnail"/>
                                   <h:form styleClass="details_button">
-                                      <h:commandButton value="Details" action="#{user.setCurrentMovie(result)}"/>
+                                      <h:commandButton value="Details" action="#{movie.loadMovie(result)}"/>
                                   </h:form>
                               </h:panelGroup>
                               
                               <h:panelGroup styleClass="movie_title">
                                   <p class="movie_title">
-                                      #{result.name}
+                                      #{result.movieName}
                                   </p>
                                   <p>
-                                      #{result.description}
+                                      #{result.movieDescription}
                                   </p>
                               </h:panelGroup>
                               

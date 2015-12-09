@@ -16,8 +16,10 @@ public class Movie {
     private String description;
     private String[] actors;
     private String posterLink;
-    private String genre;
+    
     private String trailerLink;
+    private String genre;
+    private int rating;
     
     public Movie(String name){
         this.name = name;
@@ -30,6 +32,18 @@ public class Movie {
         this.posterLink = posterLink;
         this.actors = actors;
         this.genre = genre;
+        this.trailerLink = trailerLink;
+    }
+    
+    public Movie(String name, String description, String genre, String year, String[] actors, int rating, String posterLink, String trailerLink)
+    {
+        this.name = name;
+        this.description = description;
+        this.genre = genre;
+        this.year = year;
+        this.actors = actors;
+        this.rating = rating;
+        this.posterLink = posterLink;
         this.trailerLink = trailerLink;
     }
     
@@ -105,5 +119,16 @@ public class Movie {
    public void setPageLink(String pageLink){
        this.pageLink = pageLink;
    }
+
+    public int getRating()
+    {
+        return rating;
+    }
+
+    public void setRating(int rating)
+    {
+        this.rating = rating;
+    } 
+   
 }
 

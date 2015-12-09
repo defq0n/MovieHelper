@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 
+import com.moviehelper.moviescraper.Movie;
+
 import javax.inject.Named;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -48,9 +50,42 @@ public class DatabaseBean {
     
         //DONE***TODO: search movie
 
- 
-    //rate movie?
-    //review movie?
+    /**
+     * Add a review for a movie.
+     * @param title the title of the movie
+     * @param text the text of the reivew
+     * @param username the user leaving the review
+     * @param rating the numerical rating for the movie
+     * @throws IOException
+     * @throws SQLException 
+     */
+    public void addReview(String title, String text, String username, String rating) throws IOException, SQLException
+    {
+        System.out.println("review data: " + title + ", " + text + ", " + username + ", " + rating + "/ 10");
+        String query = SQL.getSQL("add-review");
+        
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection("admin","team4");
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, title);
+            statement.setString(2, username);
+            statement.setString(3, text);
+            statement.setString(4, rating);
+            statement.executeUpdate();
+        }
+        finally {
+            dbConnection.close();
+        }
+    }
  
     
 //USER DATABASE/////////////////////////////////////////////////////////////////    
@@ -154,10 +189,10 @@ public class DatabaseBean {
 
 //MOVIE DATABASE///////////////////////////////////////////////////////////////
     //searches the database for a movie matching the given criteria
-    public List<MovieBean> searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
+    public List<Movie> searchMovie(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword) 
             throws SQLException, IOException {
         String query = SQL.getSQL("search-movie");
-        List<MovieBean> dbResults = new ArrayList<>();
+        List<Movie> dbResults = new ArrayList<>();
         
         // I'm getting a nullpointer exception from the DataSource if it is not
         // initialized in this way
@@ -187,7 +222,7 @@ public class DatabaseBean {
 
             //create movie bean list of results and return it
             while(results.next()) {
-                dbResults.add(new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link")));
+                dbResults.add(new Movie(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link")));
             }
             return dbResults;
             
@@ -196,7 +231,7 @@ public class DatabaseBean {
         }
     }
     
-    public MovieBean getMovie(String title)
+    public Movie getMovie(String title)
             throws SQLException, IOException {
         String query = SQL.getSQL("get-movie");
         
@@ -217,7 +252,7 @@ public class DatabaseBean {
             statement.setString(1, title);
             ResultSet results = statement.executeQuery();
             results.next();
-            return new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link"));
+            return new Movie(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link"));
         } finally {
             dbConnection.close();
         }
@@ -257,5 +292,4 @@ public class DatabaseBean {
         
     }
 ////////////////////////////////////////////////////////////////////////////////
-
 }
