@@ -17,26 +17,41 @@ public class Movie {
     private String[] actors;
     private String posterLink;
     private String genre;
+    private String trailerLink;
     
     public Movie(String name){
         this.name = name;
     }
     
-    public Movie(String name, String year, String description, String posterLink, String actors[]){
+    public Movie(String name, String year, String description, String posterLink, String actors[], String genre, String trailerLink){
         this.name = name;
         this.year = year;
         this.description = description;
         this.posterLink = posterLink;
         this.actors = actors;
+        this.genre = genre;
+        this.trailerLink = trailerLink;
     }
     
     @Override
    public String toString(){
-       String retur = name + ", " + year + ", " + description + ", " + posterLink + ", " + genre + ", ";
+       String retur = name + ", " + year + ", " + description + ", " + posterLink + ", " + genre + ", " + trailerLink + ", ";
        for(int i = 0; i < actors.length; i++){
-           retur += actors[i] + ", ";
+           if(i == 2){
+               retur += actors[i];
+           } else {
+            retur += actors[i] + ", ";
+           }
        }
        return retur;
+   }
+   
+   public String getTrailerLink(){
+       return this.trailerLink;
+   }
+   
+   public void setTrailerLink(String trailerLink){
+       this.trailerLink = trailerLink;
    }
     
     public String getMovieName(){
