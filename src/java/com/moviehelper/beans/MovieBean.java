@@ -21,7 +21,7 @@ import javax.inject.Inject;
 //@ConversationScoped
 public class MovieBean implements Serializable
 {
-    public MovieBean(String name, String description, String genre, String releaseDate, List<String> contributors, int rating)
+    public MovieBean(String name, String description, String genre, String releaseDate, List<String> contributors, int rating, String poster_link, String trailer_link)
     {
         this.name = name;
         this.description = description;
@@ -29,6 +29,8 @@ public class MovieBean implements Serializable
         this.releaseDate = releaseDate;
         this.contributors = contributors;
         this.rating = rating;
+        this.imageURL = poster_link;
+        this.trailerURL = trailer_link;
     }
 
     public String getName() {

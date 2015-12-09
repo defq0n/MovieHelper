@@ -33,7 +33,7 @@ public class SearchBean implements Serializable
         ratings = new ArrayList<>();
         genres = new ArrayList<>();
         dates.add("any year");
-        for (int i = 1950; i <= 2010; i += 10)
+        for (int i = 1950; i <= 2020; i += 10)
         {
             dates.add(Integer.toString(i));
         }
@@ -135,32 +135,20 @@ public class SearchBean implements Serializable
      * @param minReleaseYear
      * @return "search" action.
      */
-    public String searchAction(String genre, String minReleaseYear, String maxReleaseYear, int rating, String keyword)
+
+    public String dummySearch()
     {
-        
-            //results will contain the search results in a list
-            //currently a list of moviebean objects
-            //it is rendered conditionally on the search page
-            //if results exist they are displayed, returning "search"
+        results.clear();
+//        List<String> contributors = new ArrayList<>();
+//        contributors.add("Billy Bob");
+//        contributors.add("Mike");
+//        contributors.add("Joe");
+//        results.add(new MovieBean("Dummy movie", "A dummy movie for testing purposes",
+//                    "Dummy genre", "April 14th, 2020", contributors, 5));
+//        return "search";
             
-            
-            //get criteria user has selected for the search
-            //how to handle null cases?
-            //assume everything is filled?
-            //treat a null value as a wildcard (i.e. select *)
-            //genre
-        
-            //min release date
-            //max release date
-            //rating
-            //keyword
-            //use search criteria and send it to the database bean
         try {
-            database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);
-            //multiple results: database will return results in the form of an arraylist????
-            //single result: database will return results in the form of an moviebean?
-            
-            
+            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);           
             return "search";
         } catch (SQLException ex) {
             Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,8 +169,8 @@ public class SearchBean implements Serializable
         contributors.add("Billy Bob");
         contributors.add("Mike");
         contributors.add("Joe");
-        results.add(new MovieBean("Random movie", "Looks like someone was feeling lucky",
-                    "Random genre", "April 14th, 2020", contributors, 5));
+//        results.add(new MovieBean("Random movie", "Looks like someone was feeling lucky",
+//                    "Random genre", "April 14th, 2020", contributors, 5));
         return "search";
     }
     

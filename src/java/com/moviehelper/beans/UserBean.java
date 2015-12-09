@@ -46,6 +46,15 @@ public class UserBean implements Serializable {
         this.username = username;
     }
 
+    public MovieBean getCurrentMovie() {
+        return currentMovie;
+    }
+
+    public String setCurrentMovie(MovieBean currentMovie) {
+        this.currentMovie = currentMovie;
+        return "movie";
+    }
+
     public String getPassword() {
         return password;
     }
@@ -180,6 +189,7 @@ public class UserBean implements Serializable {
     String password;
     String passwordValidation;
     Boolean loggedIn;
+    MovieBean currentMovie;
     
     String faveMovie;
     
