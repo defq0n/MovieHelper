@@ -18,6 +18,8 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 
 import com.moviehelper.moviescraper.Movie;
+import com.moviehelper.moviescraper.MovieScraper;
+import java.util.Scanner;
 
 import javax.inject.Named;
 import javax.naming.Context;
@@ -288,8 +290,62 @@ public class DatabaseBean {
             statement.executeUpdate();
         } finally {
             dbConnection.close();
+        }     
+    }
+    
+    public void addMovie(Movie movie)
+            throws SQLException, IOException {
+        String query = SQL.getSQL("add-movie");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        Connection dbConnection = movieSource.getConnection("admin","team4");
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            //switch ordering of these to match what is needed in sql query file
+            statement.setString(1, movie.getMovieName());
+            statement.setString(2, movie.getPosterLink());
+            statement.setString(3, movie.getTrailerLink());
+            statement.setInt(4, movie.getRating());
+            statement.setString(5, movie.getActors());
+            statement.setString(5, movie.getGenre());
+            statement.setString(6, movie.getMovieDescription());
+            statement.setString(7, movie.getMovieYear());
+            statement.executeUpdate();
+        } finally {
+            dbConnection.close();
+        }     
+    }
+    
+    public static void main(String[] args){
+        ArrayList<Movie> movies = MovieScraper.getMovies("Harry potter");
+        for(Movie t : movies){
+            System.out.println(t.toString());
+        }
+        System.out.println("\n\nIs this information alright to add to the databse? (y/n)");
+        Scanner sc = new Scanner(System.in);
+        String answer = sc.next();
+        if(answer.equals("y")){
+            for(Movie m : movies){
+                try {
+                addMovie(m); //FIX
+                } catch (Exception e){
+                    System.out.println(e.toString());
+                }
+            }
+            System.out.println("\n\nAdding the movies to the database is complete.");
+        } else {
+            // try different search
+        }   
     }
 ////////////////////////////////////////////////////////////////////////////////
 }

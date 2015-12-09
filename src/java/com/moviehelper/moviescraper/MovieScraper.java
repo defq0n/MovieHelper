@@ -11,6 +11,7 @@ import java.util.Scanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import com.moviehelper.beans.DatabaseBean;
 
 /**
  *
@@ -24,10 +25,14 @@ public class MovieScraper {
     public static void main(String[] args) {
         //testFormatString();
         //testParseMoviesHTML();
-        testGetMovieInformation();
+        //testGetMovieInformation();
         //System.out.println(getPosterLink("/title/tt0241527/"));
         //System.out.println(formatYoutubeString("harry potter and the sorcerer's stone"));
         //testGetTrailer();
+    }
+    
+    public static ArrayList<Movie> getMovies(String query){
+        return getMovieInformation(getMovieListInformation(parseMoviesHTML(formatString(query))));
     }
     
     /**
@@ -48,7 +53,7 @@ public class MovieScraper {
      * @param str String to be formatted
      * @return Formatted string of str
      */
-    public static String formatString(String str){
+    private static String formatString(String str){
         char charArray[] = new char[str.length()];
         for(int i = 0; i < charArray.length; i++){
             char s = str.charAt(i);
@@ -61,7 +66,7 @@ public class MovieScraper {
         return String.valueOf(charArray);
     }
     
-    public static String formatYoutubeString(String str){
+    private static String formatYoutubeString(String str){
         String charArray = "results?search_query=";
         for(int i = 0; i < str.length(); i++){
             char s = str.charAt(i);
@@ -216,7 +221,7 @@ public class MovieScraper {
     * @param movieList is a multidimensional array from getMovieListInformation.
     * @return movieArray a ArrayList containing Movie objects.
     */
-    public static ArrayList<Movie> getMovieInformation(String[][] movieList){
+    private static ArrayList<Movie> getMovieInformation(String[][] movieList){
         ArrayList<Movie> movieArray = new ArrayList<>();
         for(int i = 0; i < movieList[0].length; i++){
             if(!movieList[3][i].equals("")){
@@ -251,7 +256,7 @@ public class MovieScraper {
     * @param pageLink is the extended imdb url for the movie page.
     * @return movieDescription String containing the description
     */
-    public static String getMovieDescription(String pageLink){
+    private static String getMovieDescription(String pageLink){
         String movieDescription = "";
         try {
             Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
@@ -276,7 +281,7 @@ public class MovieScraper {
     * @param pageLink is the extended imdb url for the movie page.
     * @return posterLink String containing the poster url link.
     */
-    public static String getPosterLink(String pageLink){
+    private static String getPosterLink(String pageLink){
         String posterLink = "";
         try {
             Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
@@ -295,7 +300,7 @@ public class MovieScraper {
         return posterLink;
     }
     
-    public static String getGenre(String pageLink){
+    private static String getGenre(String pageLink){
     String genre = "";
     try {
         Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
@@ -320,7 +325,7 @@ public class MovieScraper {
     * @param pageLink is the extended imdb url for the movie page.
     * @return movieActors String containing three actors.
     */
-    public static String[] getMovieActors(String pageLink){
+    private static String[] getMovieActors(String pageLink){
         String[] movieActors = {"", "", ""};
         try {
             Document d = Jsoup.connect("http://imdb.com" + pageLink).get();
@@ -352,14 +357,16 @@ public class MovieScraper {
     private static void testGetTrailer(){
         Movie m = new Movie("Harry Potter and the Sorcerer's Stone");
         m.setMovieYear("2001");
-        getTrailer(m);
+        m.setTrailerLink(getTrailer(m));
+        System.out.println(m.getTrailerLink());
     }
     
-    public static String getTrailer(Movie movie){
+    private static String getTrailer(Movie movie){
         String trailerLink = "";
         if(Integer.valueOf(movie.getMovieYear()) < 1990){
             trailerLink = "null";
         } else {
+            trailerLink += "http://www.youtube.com";
             String link = formatYoutubeString(movie.getMovieName());
             try {
             Document d = Jsoup.connect("http://www.youtube.com/" + link).get();

@@ -14,7 +14,7 @@ public class Movie {
     private String pageLink;
     private String year;
     private String description;
-    private String[] actors;
+    private String actors;
     private String posterLink;
     
     private String trailerLink;
@@ -25,7 +25,7 @@ public class Movie {
         this.name = name;
     }
     
-    public Movie(String name, String year, String description, String posterLink, String actors[], String genre, String trailerLink){
+    public Movie(String name, String year, String description, String posterLink, String actors, int rating, String genre, String trailerLink){
         this.name = name;
         this.year = year;
         this.description = description;
@@ -33,31 +33,12 @@ public class Movie {
         this.actors = actors;
         this.genre = genre;
         this.trailerLink = trailerLink;
-    }
-    
-    public Movie(String name, String description, String genre, String year, String[] actors, int rating, String posterLink, String trailerLink)
-    {
-        this.name = name;
-        this.description = description;
-        this.genre = genre;
-        this.year = year;
-        this.actors = actors;
         this.rating = rating;
-        this.posterLink = posterLink;
-        this.trailerLink = trailerLink;
     }
     
     @Override
    public String toString(){
-       String retur = name + ", " + year + ", " + description + ", " + posterLink + ", " + genre + ", " + trailerLink + ", ";
-       for(int i = 0; i < actors.length; i++){
-           if(i == 2){
-               retur += actors[i];
-           } else {
-            retur += actors[i] + ", ";
-           }
-       }
-       return retur;
+       return name + ", " + year + ", " + description + ", " + posterLink + ", " + genre + ", " + trailerLink + ", " + actors;
    }
    
    public String getTrailerLink(){
@@ -104,12 +85,20 @@ public class Movie {
        this.posterLink = posterLink;
    }
    
-   public String[] getActors(){
-       return this.actors;
+   public String getActors(){
+       return actors;
    }
    
    public void setActors(String[] actors){
-       this.actors = actors;
+       String retur = "";
+       for(int i = 0; i < actors.length; i++){
+           if(i == 2){
+               retur += actors[i];
+           } else {
+            retur += actors[i] + ", ";
+           }
+       }
+       this.actors = retur;
    }
    
    public String getPageLink(){
