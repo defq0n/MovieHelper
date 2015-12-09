@@ -19,7 +19,7 @@ import javax.faces.flow.FlowScoped;
  * @author zach
  */
 @Named(value = "search")
-@ConversationScoped
+@SessionScoped
 public class SearchBean implements Serializable
 {
     /**
@@ -41,6 +41,7 @@ public class SearchBean implements Serializable
         {
             ratings.add(i);
         }
+        genres.add("all");
         genres.add("Drama");
         genres.add("Comedy");
         genres.add("Action");
@@ -139,16 +140,21 @@ public class SearchBean implements Serializable
     public String dummySearch()
     {
         results.clear();
-//        List<String> contributors = new ArrayList<>();
-//        contributors.add("Billy Bob");
-//        contributors.add("Mike");
-//        contributors.add("Joe");
-//        results.add(new MovieBean("Dummy movie", "A dummy movie for testing purposes",
-//                    "Dummy genre", "April 14th, 2020", contributors, 5));
-//        return "search";
+        
+        //if search terms have not been set, set them to a default value
+        if(this.maxReleaseYear.equalsIgnoreCase("any year")) {
+            this.maxReleaseYear = "2020";
+        }
+        if(this.minReleaseYear.equalsIgnoreCase("any year")) {
+            this.minReleaseYear = "1950";
+        }
+        if(this.genre.equalsIgnoreCase("all")) {
+            this.genre = "%";
+        }
             
         try {
-            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);           
+//            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);           
+            results.add(database.getMovie("The Matrix"));
             return "search";
         } catch (SQLException ex) {
             Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);

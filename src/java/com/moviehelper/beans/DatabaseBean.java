@@ -196,6 +196,33 @@ public class DatabaseBean {
         }
     }
     
+    public MovieBean getMovie(String title)
+            throws SQLException, IOException {
+        String query = SQL.getSQL("get-movie");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection("admin","team4");
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, title);
+            ResultSet results = statement.executeQuery();
+            results.next();
+            return new MovieBean(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link"));
+        } finally {
+            dbConnection.close();
+        }
+    }
+    
     public void addMovie(String title, String posterLink, String trailerLink, String actors, String description, String genre, String releaseYear, int rating)
             throws SQLException, IOException {
         String query = SQL.getSQL("add-movie");

@@ -62,7 +62,7 @@
             </p>
                 <p>
             <h:commandButton value="Search" styleClass="search_button"
-                             action="#{search.searchAction(search.genre, search.minReleaseYear, search.maxReleaseYear, serach.rating, search.keyword)}"/>
+                             action="#{search.dummySearch}"/>
                 </p>
             </h:form>
           </div>
@@ -75,7 +75,7 @@
                               <h:panelGroup>
                                   <img src="#{result.imageURL}" class="movie_poster_thumbnail"/>
                                   <h:form styleClass="details_button">
-                                      <h:button value="Details" outcome="#{user.setCurrentMovie(result)}"/>
+                                      <h:commandButton value="Details" action="#{user.setCurrentMovie(result)}"/>
                                   </h:form>
                               </h:panelGroup>
                               
