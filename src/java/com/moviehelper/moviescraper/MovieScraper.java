@@ -26,6 +26,8 @@ public class MovieScraper {
         //testParseMoviesHTML();
         testGetMovieInformation();
         //System.out.println(getPosterLink("/title/tt0241527/"));
+        //System.out.println(formatYoutubeString("harry potter and the sorcerer's stone"));
+        //testGetTrailer();
     }
     
     /**
@@ -56,6 +58,22 @@ public class MovieScraper {
                 charArray[i] = s;
             }
         }
+        return String.valueOf(charArray);
+    }
+    
+    public static String formatYoutubeString(String str){
+        String charArray = "results?search_query=";
+        for(int i = 0; i < str.length(); i++){
+            char s = str.charAt(i);
+            if(s == ' '){
+                charArray += "+";
+            } else if(s == '\''){
+                charArray += "%27";
+            } else {
+                charArray += s;
+            }
+        }
+        charArray += "+trailer";
         return String.valueOf(charArray);
     }
     
@@ -211,6 +229,7 @@ public class MovieScraper {
                     tempMovie.setPosterLink(getPosterLink(pageLink));
                     tempMovie.setActors(getMovieActors(pageLink));
                     tempMovie.setGenre(getGenre(pageLink));
+                    tempMovie.setTrailerLink(getTrailer(tempMovie));
                     movieArray.add(tempMovie);
                 }
             }
@@ -328,6 +347,37 @@ public class MovieScraper {
             System.out.println(e.toString());
         }
         return movieActors;
+    }
+    
+    private static void testGetTrailer(){
+        Movie m = new Movie("Harry Potter and the Sorcerer's Stone");
+        m.setMovieYear("2001");
+        getTrailer(m);
+    }
+    
+    public static String getTrailer(Movie movie){
+        String trailerLink = "";
+        if(Integer.valueOf(movie.getMovieYear()) < 1990){
+            trailerLink = "null";
+        } else {
+            String link = formatYoutubeString(movie.getMovieName());
+            try {
+            Document d = Jsoup.connect("http://www.youtube.com/" + link).get();
+            Element e = d.body();
+            String html = e.toString();
+            String linkDiv = "";
+            int max = html.indexOf("class=\"yt-lockup-title \"><a href=\"") + 100;
+            for(int i = html.indexOf("class=\"yt-lockup-title \"><a href=\""); i < max; i++){
+                linkDiv += html.charAt(i);
+            }
+            for(int i = linkDiv.indexOf("<a href=\"")+9; i < linkDiv.indexOf("class=\"yt-uix-sessionlink")-2; i++){
+                trailerLink += linkDiv.charAt(i);
+            } 
+            } catch(Exception e){
+            System.out.println(e.toString());
+            }
+        }
+        return trailerLink;
     }
 }
 
