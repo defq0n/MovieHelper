@@ -386,5 +386,14 @@ public class MovieScraper {
         }
         return trailerLink;
     }
+    
+    private static void getSQL(ArrayList<Movie> movies){
+        for(Movie m : movies){
+            System.out.println("\nINSERT INTO \"ADMIN\".\"movie\" (\"title\", \"poster_link\", \"trailer_link\", \"rating\", \"actors\", \"genre\", \"description\", \"release_year\")\n" +
+            "    VALUES ('" + m.getMovieName() + "',\n '" + m.getPosterLink() + "',\n '" + m.getTrailerLink() + "',\n " 
+            + m.getRating() + ",\n '" + m.getActors() + "',\n " + "(SELECT \"genre\".\"id\" FROM \"genre\" WHERE \"genre\".\"title\"='" + m.getGenre() + "'),\n '" + m.getMovieDescription() + "',\n '"
+            + m.getMovieYear() + "');");
+        }
+    }
 }
 
