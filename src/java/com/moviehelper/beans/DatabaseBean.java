@@ -226,7 +226,40 @@ public class DatabaseBean {
         return toReturn;
     }
     
-    public 
+    public List<Review> getReviewsForMovie(String title) throws SQLException, IOException{
+        List<Review>toReturn = new ArrayList<>();
+        
+        System.out.println("finding reviews for " + title);
+        String query = SQL.getSQL("select_movie_reviews");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection();
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, title);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next())
+            {
+                Review temp = new Review(usernameFromID(resultSet.getString("user")), movieFromID(resultSet.getString("title")), resultSet.getInt("rating"), resultSet.getString("text"));
+                toReturn.add(temp);
+                System.out.println(temp);
+            }
+            
+        } finally {
+            dbConnection.close();
+        }
+        return toReturn;
+    }
 ////////////////////////////////////////////////////////////////////////////////
 
 //MOVIE DATABASE///////////////////////////////////////////////////////////////

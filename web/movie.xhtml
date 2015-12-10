@@ -68,7 +68,19 @@
                 </h:panelGrid>
             </h:form>
             <div class="review_panel">
-                GET REVIEW INFORMATION FROM THE DATABASE!!!
+                <h2> <strong> Reviews: </strong> </h2> <br/>
+                <h:form>
+                    <h:dataTable value="#{databaseBean.getReviewsForMovie(movie.name)}" var="review" columnClasses="column">
+                <h:column>
+                    <div class="review_panel" style="border: 1px solid #EFEFEF; width: 1270px;">
+                       
+                        <strong>User: </strong> #{review.user}<br/>
+                        <strong> Score: </strong> #{review.score} / 10<br/>
+                    <strong> Review: </strong>#{review.text}<br/>
+                    </div>
+                </h:column>
+            </h:dataTable>
+            </h:form>
             </div>
         </div>     
         <footer>
