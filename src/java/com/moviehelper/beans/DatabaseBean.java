@@ -63,7 +63,7 @@ public class DatabaseBean {
      * @throws IOException
      * @throws SQLException 
      */
-    public void addReview(String title, String text, String username, String rating) throws IOException, SQLException
+    public void addReview(String title, String text, String username, int rating) throws IOException, SQLException
     {
         System.out.println("review data: " + title + ", " + text + ", " + username + ", " + rating + "/ 10");
         String query = SQL.getSQL("add-review");
@@ -83,12 +83,51 @@ public class DatabaseBean {
             statement.setString(1, title);
             statement.setString(2, username);
             statement.setString(3, text);
-            statement.setString(4, rating);
+            statement.setInt(4, rating);
             statement.executeUpdate();
         }
         finally {
             dbConnection.close();
         }
+    }
+    
+    public int updateRating(String title)
+            throws SQLException, IOException {
+//        String query = SQL.getSQL("update-rating");
+        int newRating;
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection("admin","team4");
+        String query = SQL.getSQL("select_movie_reviews");
+        try {
+            //get current rating and number of ratings
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, title);
+            ResultSet resultSet = statement.executeQuery();
+            int noRatings = 0;
+            int totalRating = 0;
+            while(resultSet.next())
+            {
+                totalRating += resultSet.getInt("rating");
+                noRatings++;
+            }
+            newRating = totalRating / noRatings;
+            query = SQL.getSQL("update-rating");
+            statement = dbConnection.prepareStatement(query);
+            statement.setInt(1, newRating);            
+            statement.setString(2, title);
+            statement.executeUpdate();
+        }
+        finally {
+            dbConnection.close();
+        }
+        return newRating;
     }
  
     
@@ -290,9 +329,9 @@ public class DatabaseBean {
             statement.setString(2, minReleaseYear);
             statement.setString(3, maxReleaseYear);
             statement.setDouble(4, rating);
-            statement.setString(5, keyword);
-            statement.setString(6, keyword);
-            statement.setString(7, keyword);
+            statement.setString(5, keyword.toUpperCase());
+            statement.setString(6, keyword.toUpperCase());
+            statement.setString(7, keyword.toUpperCase());
             ResultSet results = statement.executeQuery();
 
             //create movie bean list of results and return it

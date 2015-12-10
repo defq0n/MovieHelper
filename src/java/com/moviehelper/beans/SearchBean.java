@@ -162,6 +162,10 @@ public class SearchBean implements Serializable
         } catch (IOException ex) {
             Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.maxReleaseYear = "";
+        this.minReleaseYear = "";
+        this.genre = "";
+        this.keyword = "";
         return "search";
     }
     

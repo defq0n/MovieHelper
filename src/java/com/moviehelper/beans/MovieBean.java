@@ -137,7 +137,10 @@ public class MovieBean implements Serializable
     public String review() throws IOException, SQLException
     {
         System.out.println("review data from moviebean: " + this.name + ", " + this.userReviewText + ", " + user.username);
-        database.addReview(this.name, this.userReviewText, user.getUsername(), this.userReviewRating);
+        database.addReview(this.name, this.userReviewText, user.getUsername(), Integer.valueOf(this.userReviewRating));
+        this.rating = database.updateRating(this.name);
+        this.userReviewRating = "";
+        this.userReviewText = "";
         return "movie";
     }
 

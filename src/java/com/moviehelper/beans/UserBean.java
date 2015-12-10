@@ -107,8 +107,6 @@ public class UserBean implements Serializable {
      */
     public String login()
     {
-            addReview("Dummy Movie", 5, "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. "
-                    + "A solid 5 from me.");
         try{ 
             // if user exists in database
             if(database.userExists(username)) {
@@ -145,8 +143,6 @@ public class UserBean implements Serializable {
      */
     public String register()
     {
-        addReview("Dummy Movie", 5, "This movie seemed really bland to me. Almost like the creators were just trying to come up with something to take up space, or maybe show off some kind of proof-of-concept. "
-                                    + "A solid 5 from me.");
         if (!password.equals(passwordValidation))
         {
             //Passwords did not match

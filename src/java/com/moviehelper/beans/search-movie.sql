@@ -9,5 +9,5 @@ WHERE "movie"."genre" IN (SELECT "genre"."id" FROM "genre" WHERE "genre"."title"
     AND "movie"."release_year" BETWEEN ? AND ?
     AND "movie"."rating" BETWEEN ? AND 10
     AND ("movie"."actors" LIKE ?
-        OR "movie"."description" LIKE ?
-        OR "movie"."title" LIKE ?)
+        OR UPPER("movie"."description") LIKE ?
+        OR UPPER("movie"."title") LIKE ?)
