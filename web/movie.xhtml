@@ -25,17 +25,18 @@
                     <li><a href="#">Logout</a></li>
                 </ul>
             </div>
+            <h2 class="movie_title"><strong>#{movie.name}</strong></h2>
             <h:panelGrid columns="2" styleClass="movie_media_panel" columnClasses="column_1, column_2">
                 <h:panelGroup>
-                    Official Poster
+                    
                 </h:panelGroup>
 
                 <h:panelGroup styleClass="column2">
-                    Trailer
+                    
                 </h:panelGroup>
 
                 <h:panelGroup>
-                    <img src="#{movie.imageURL}" class="movie_poster"/><br/>
+                    <img src="#{movie.imageURL}" class="movie_poster" style="padding-right: 50px;"/><br/>
                 </h:panelGroup>
 
                 <h:panelGroup styleClass="column2">
@@ -46,20 +47,20 @@
                     </object>
                 </h:panelGroup>
             </h:panelGrid>
-            <p class="movie_title">#{movie.name}</p>
-            <p>Rated #{movie.rating}/10 by GET NUMBER OF CONTRIBUTORS</p>
+            <p><strong>Rated:</strong> #{movie.rating}/10</p>
             <p>#{movie.description}</p>
             <h:form class="review_input_panel">
                 <h:panelGrid>
                     <h:panelGroup>
-                        Leave a rating: 
+                        <p> Leave a rating: 
                         <h:selectOneMenu value="#{movie.userReviewRating}">
                             <f:selectItems value="#{movie.ratings}"/>
                         </h:selectOneMenu>
                         / 10
+                        </p>
                     </h:panelGroup>
                     <div>
-                        <h:inputTextarea value="#{movie.userReviewText}" styleClass="review_input_text"/>
+                        <h:inputTextarea value="#{movie.userReviewText}" styleClass="review_input_text" style="width: 1270px; height: 100px;"/>
                     </div>
                     
                     <h:commandButton value="Submit" action="#{movie.review()}"/>
