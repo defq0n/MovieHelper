@@ -187,6 +187,41 @@ public class DatabaseBean {
             dbConnection.close();
         }
     }
+    
+    public List<Review> getReviewsForUser(String username) throws SQLException, IOException
+    {
+        List<Review>toReturn = new ArrayList<>();
+        
+        System.out.println("finding reviews for " + username);
+        String query = SQL.getSQL("select_user_reviews");
+        
+        // I'm getting a nullpointer exception from the DataSource if it is not
+        // initialized in this way
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection();
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next())
+            {
+                toReturn.add(new Review(resultSet.getString("title"), resultSet.getInt("rating"), resultSet.getString("text")) );
+            }
+            
+        } finally {
+            dbConnection.close();
+        }
+        System.out.println("Size of reviews" + toReturn.size());
+        return toReturn;
+    }
 ////////////////////////////////////////////////////////////////////////////////
 
 //MOVIE DATABASE///////////////////////////////////////////////////////////////
@@ -349,4 +384,77 @@ public class DatabaseBean {
 //        }   
 //    }
 ////////////////////////////////////////////////////////////////////////////////
+    
+    public class Review
+    {
+        public String user;
+        public String title;
+        public int score;
+        public String text;
+        
+        public Review(String user, String title, int score, String text)
+        {
+            this.user = user;
+            this.title = title;
+            this.score = score;
+            this.text = text;
+        }
+        
+        public Review(String title, int score, String text)
+        {
+            this.user = "should be gotten in xhtml";
+            this.title = title;
+            this.score = score;
+            this.text = text;
+        }
+
+        public String getUser()
+        {
+            return user;
+        }
+
+        public void setUser(String user)
+        {
+            this.user = user;
+        }
+
+        public String getTitle()
+        {
+            return title;
+        }
+
+        public void setTitle(String title)
+        {
+            this.title = title;
+        }
+
+        public int getScore()
+        {
+            return score;
+        }
+
+        public void setScore(int score)
+        {
+            this.score = score;
+        }
+
+        public String getText()
+        {
+            return text;
+        }
+
+        public void setText(String text)
+        {
+            this.text = text;
+        }
+        
+        @Override
+        public String toString()
+        {
+            return user + ", " + score + ", " + title + ", " + text;
+        }
+        
+    }
+    
+    
 }
