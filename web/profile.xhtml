@@ -21,16 +21,16 @@
                 <ul>
                     <li><a href="search.xhtml">Search</a></li>
                     |
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="index.xhtml">Logout</a></li>
                 </ul>
             </div>
             <div class="information-div">
             Username: #{user.username}<br/>
             Favorite Movie: Dummy Movie<br/>
             Reviews by this user: #{profile.userReviewCount}
-            <p >
+            <p><strong>
                 #{profile.userReviewCount} Reviews by #{user.username}:
-            </p>
+                </strong></p>
             </div>
             <h:form>
                 <h:dataTable value="#{profile.userReviews}" var="review" columnClasses="column">
