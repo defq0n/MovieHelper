@@ -24,19 +24,21 @@
                     <li><a href="#">Logout</a></li>
                 </ul>
             </div>
+            <div class="information-div">
             Username: #{user.username}<br/>
             Favorite Movie: Dummy Movie<br/>
             Reviews by this user: #{profile.userReviewCount}
-            <p>
+            <p >
                 #{profile.userReviewCount} Reviews by #{user.username}:
             </p>
+            </div>
             <h:form>
-                <h:dataTable value="#{profile.userReviews}" var="review">
+                <h:dataTable value="#{profile.userReviews}" var="review" columnClasses="column">
                 <h:column>
                     <div class="review_panel">
-                    #{review.title}<br/>
-                    #{review.score}<br/>
-                    #{review.text}<br/>
+                        <strong>Title: </strong> #{review.title}<br/>
+                        <strong> Score: </strong> #{review.score} / 10<br/>
+                    <strong> Review: </strong>#{review.text}<br/>
                     </div>
                 </h:column>
             </h:dataTable>

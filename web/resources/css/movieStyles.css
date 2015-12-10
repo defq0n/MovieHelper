@@ -20,7 +20,7 @@ body {
     height: 50px;
     background-color: #333333;
     width: 100%;
-    margin-top: -1.5%;
+    margin-top: -1%;
 }
 
 .container {
@@ -63,4 +63,18 @@ li {
 
 .options {
     margin-left: 510px;
+}
+
+.movie_poster {
+    height: 300px;
+    width: 200px;
+    margin-left: 130px;
+}
+
+p{
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
 }
