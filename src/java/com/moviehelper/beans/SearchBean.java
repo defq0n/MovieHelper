@@ -154,8 +154,8 @@ public class SearchBean implements Serializable
         }
             
         try {
-//            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);           
-            results.add(database.getMovie("The Matrix"));
+            results = database.searchMovie(genre, minReleaseYear, maxReleaseYear, rating, keyword);           
+//            results.add(database.getMovie("The Matrix"));
             return "search";
         } catch (SQLException ex) {
             Logger.getLogger(SearchBean.class.getName()).log(Level.SEVERE, null, ex);

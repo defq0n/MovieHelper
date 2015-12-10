@@ -224,6 +224,7 @@ public class DatabaseBean {
 
             //create movie bean list of results and return it
             while(results.next()) {
+//                Movie temp = new Movie(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link"));
                 dbResults.add(new Movie(results.getString("title"), results.getString("description"), results.getString("genre"), results.getString("release_year"), null, results.getInt("rating"), results.getString("poster_link"), results.getString("trailer_link")));
             }
             return dbResults;
@@ -326,26 +327,26 @@ public class DatabaseBean {
         }     
     }
     
-    public static void main(String[] args){
-        ArrayList<Movie> movies = MovieScraper.getMovies("Harry potter");
-        for(Movie t : movies){
-            System.out.println(t.toString());
-        }
-        System.out.println("\n\nIs this information alright to add to the databse? (y/n)");
-        Scanner sc = new Scanner(System.in);
-        String answer = sc.next();
-        if(answer.equals("y")){
-            for(Movie m : movies){
-                try {
-                addMovie(m); //FIX
-                } catch (Exception e){
-                    System.out.println(e.toString());
-                }
-            }
-            System.out.println("\n\nAdding the movies to the database is complete.");
-        } else {
-            // try different search
-        }   
-    }
+//    public static void main(String[] args){
+//        ArrayList<Movie> movies = MovieScraper.getMovies("Harry potter");
+//        for(Movie t : movies){
+//            System.out.println(t.toString());
+//        }
+//        System.out.println("\n\nIs this information alright to add to the databse? (y/n)");
+//        Scanner sc = new Scanner(System.in);
+//        String answer = sc.next();
+//        if(answer.equals("y")){
+//            for(Movie m : movies){
+//                try {
+////                addMovie(m); //FIX
+//                } catch (Exception e){
+//                    System.out.println(e.toString());
+//                }
+//            }
+//            System.out.println("\n\nAdding the movies to the database is complete.");
+//        } else {
+//            // try different search
+//        }   
+//    }
 ////////////////////////////////////////////////////////////////////////////////
 }

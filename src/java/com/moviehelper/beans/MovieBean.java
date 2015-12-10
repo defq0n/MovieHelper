@@ -43,6 +43,21 @@ public class MovieBean implements Serializable
         ratings = new ArrayList<>();
         for (int i = 0; i <= 10; i++) ratings.add(Integer.toString(i));
     }
+//    public MovieBean(String name, String description, String genre, String releaseDate, List<String> contributors, int rating, String poster_link, String trailer_link)
+//    {
+//        this.name = name;
+//        this.description = description;
+//        this.genre = genre;
+//        this.releaseDate = releaseDate;
+//        this.contributors = new ArrayList<>(); // get from database
+//        this.rating = rating;
+//        this.imageURL = poster_link;
+//        this.trailerURL = trailer_link;
+//        this.userReviewRating = ""; // from database
+//        this.userReviewText = "";  //from database
+//        ratings = new ArrayList<>();
+//        for (int i = 0; i <= 10; i++) ratings.add(Integer.toString(i));
+//    }
     
     @Inject DatabaseBean database;
     @Inject UserBean user;

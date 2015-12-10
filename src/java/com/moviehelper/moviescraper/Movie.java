@@ -5,6 +5,8 @@
  */
 package com.moviehelper.moviescraper;
 
+import java.util.List;
+
 /**
  *
  * @author defq0n
@@ -25,14 +27,14 @@ public class Movie {
         this.name = name;
     }
     
-    public Movie(String name, String year, String description, String posterLink, String actors, int rating, String genre, String trailerLink){
+    public Movie(String name, String description, String genre, String releaseDate, List<String> contributors, int rating, String poster_link, String trailer_link){
         this.name = name;
         this.year = year;
         this.description = description;
-        this.posterLink = posterLink;
+        this.posterLink = poster_link;
         this.actors = actors;
         this.genre = genre;
-        this.trailerLink = trailerLink;
+        this.trailerLink = trailer_link;
         this.rating = rating;
     }
     
