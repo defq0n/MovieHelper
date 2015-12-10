@@ -26,15 +26,21 @@
             </div>
             Username: #{user.username}<br/>
             Favorite Movie: Dummy Movie<br/>
-            Reviews by this user: #{databaseBean.getReviewsForUser(user.username).size()}
-            <h:dataTable value="#{databaseBean.getReviewsForUser(user.username)}" var="review" class="review_panel">
-                <h:panelGroup>
-                    jafie;oaf
-                #{review.title}
-                #{review.score}
-                #{review.text}
-                </h:panelGroup>
+            Reviews by this user: #{profile.userReviewCount}
+            <p>
+                #{profile.userReviewCount} Reviews by #{user.username}:
+            </p>
+            <h:form>
+                <h:dataTable value="#{profile.userReviews}" var="review">
+                <h:column>
+                    <div class="review_panel">
+                    #{review.title}<br/>
+                    #{review.score}<br/>
+                    #{review.text}<br/>
+                    </div>
+                </h:column>
             </h:dataTable>
+            </h:form>
             </div>
         <footer>
             <p>(c) Copyright by Erik Ahlbrecht - Stephen Bernard - Zach Foede - Dustin Scholz - Nick Tollinger | For educational purposes only</p>

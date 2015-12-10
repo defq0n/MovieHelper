@@ -27,6 +27,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.moviehelper.beans.Review;
+
 /**
  * A bean to handle interactions between the database and server-side code
  * @author Zach
@@ -213,13 +215,14 @@ public class DatabaseBean {
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next())
             {
-                toReturn.add(new Review(resultSet.getString("title"), resultSet.getInt("rating"), resultSet.getString("text")) );
+                Review temp = new Review(usernameFromID(resultSet.getString("user")), movieFromID(resultSet.getString("title")), resultSet.getInt("rating"), resultSet.getString("text"));
+                toReturn.add(temp);
+                System.out.println(temp);
             }
             
         } finally {
             dbConnection.close();
         }
-        System.out.println("Size of reviews" + toReturn.size());
         return toReturn;
     }
 ////////////////////////////////////////////////////////////////////////////////
@@ -267,6 +270,68 @@ public class DatabaseBean {
         } finally {
             dbConnection.close();
         }
+    }
+    
+    private String movieFromID(String id) throws SQLException, IOException
+    {
+        String query = SQL.getSQL("movie-title-from-id");
+        String toReturn = "";
+
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection();
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                toReturn = resultSet.getString("title");
+            }
+            else toReturn = "invalid id";
+            
+        } finally {
+            dbConnection.close();
+        }
+        return toReturn;
+    }
+    
+    private String usernameFromID(String id) throws SQLException, IOException
+    {
+        String query = SQL.getSQL("username-from-id");
+        String toReturn = "";
+
+        Context initialContext = null;
+        try {
+            initialContext = new InitialContext();
+            movieSource = (DataSource) initialContext.lookup("jdbc/movies");
+        } catch (NamingException ex) {
+            Logger.getLogger(DatabaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Connection dbConnection = movieSource.getConnection();
+        
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(query);
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+            {
+                toReturn = resultSet.getString("username");
+            }
+            else toReturn = "invalid id";
+            
+        } finally {
+            dbConnection.close();
+        }
+        return toReturn;
     }
     
     public Movie getMovie(String title)
@@ -383,78 +448,5 @@ public class DatabaseBean {
 //            // try different search
 //        }   
 //    }
-////////////////////////////////////////////////////////////////////////////////
-    
-    public class Review
-    {
-        public String user;
-        public String title;
-        public int score;
-        public String text;
-        
-        public Review(String user, String title, int score, String text)
-        {
-            this.user = user;
-            this.title = title;
-            this.score = score;
-            this.text = text;
-        }
-        
-        public Review(String title, int score, String text)
-        {
-            this.user = "should be gotten in xhtml";
-            this.title = title;
-            this.score = score;
-            this.text = text;
-        }
-
-        public String getUser()
-        {
-            return user;
-        }
-
-        public void setUser(String user)
-        {
-            this.user = user;
-        }
-
-        public String getTitle()
-        {
-            return title;
-        }
-
-        public void setTitle(String title)
-        {
-            this.title = title;
-        }
-
-        public int getScore()
-        {
-            return score;
-        }
-
-        public void setScore(int score)
-        {
-            this.score = score;
-        }
-
-        public String getText()
-        {
-            return text;
-        }
-
-        public void setText(String text)
-        {
-            this.text = text;
-        }
-        
-        @Override
-        public String toString()
-        {
-            return user + ", " + score + ", " + title + ", " + text;
-        }
-        
-    }
-    
-    
+//////////////////////////////////////////////////////////////////////////////// 
 }
