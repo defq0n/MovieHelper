@@ -1,7 +1,7 @@
 # Movie Helper
 #### **A simple application to help users find a new movie to watch**
 This web application was created CS4531 Software Engineering at the University
-of Minnesota Duluth
+of Minnesota Duluth.
 
 The application is simple. When the user lands on the homepage, they are greeted
 with information about the service, and have the option to log in or register an
@@ -20,7 +20,7 @@ Filling the movies database was a tedious task, a (semi-functional) web-scraper
 was written to quickly populate the database. For our example, only around 50
 movies were scraped and imported.
 
-Developers:
+**Developers:**
 
 * Erik Ahlbrecht
 * Stephen Bernard
